@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@300;400;500&display=swap');
+
+  
+  @import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
+
+
+.navbar-brand img {
+     color: pink;
+     width: 44px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 235px;
+    margin-left: 6px;
+}
+
+.navbar-brand span{
+     font-family: 'Kalnia', serif;
+     /* font-family: 'Oswald', sans-serif; */
+     /* font-family: 'Noto Sans', sans-serif; */
+     /* font-family: 'Ubuntu', sans-serif; */
+     font-size: 25px;
+}
+
+nav {
+  background-color: #E9BFB3 !important; 
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 25px;
+  font-family: 'Rubik', sans-serif;
+
+}
+
+
+
+   
+   
