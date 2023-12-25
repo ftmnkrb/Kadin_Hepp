@@ -1,0 +1,32 @@
+@import "../../../../colors.scss";
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+
+    button {
+      border: 1px solid transparent;
+      background-color: transparent;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      width: 100%;
+      border-radius: 20px;
+      transition: all 0.4s ease-in-out;
+      margin-bottom: 0.5rem;
+      i {
+        margin-right: 1rem;
+      }
+      &.active {
+        background-color: $primary;
+        color: #fff;
+      }
+      &:hover {
+        border: 1px solid $primary;
+      }
+    }
+  }
+}
