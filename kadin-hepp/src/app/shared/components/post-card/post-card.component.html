@@ -1,10 +1,25 @@
-<div [ngClass]="styleClass" class="card">
-  <div class="card-body">
+<div [ngClass]="styleClass" class="card p-3">
+  <div class="card-top">
+    <div class="card-profile">
+      <img
+        class="img-fluid"
+        src="https://avatars.githubusercontent.com/u/91590427?v=4"
+        alt=""
+      />
+      <div class="profile-name">
+        <span>Fatmanur Karabacak</span>
+        <span [innerText]="'@fatmanurkarabacak'"></span>
+      </div>
+    </div>
+    <div class="card-edit">
+      <button class="btn p-0"><i class="bi bi-three-dots-vertical"></i></button>
+    </div>
+  </div>
+  <div class="card-body px-0">
     <p class="card-text" highlightHashtag>
       Some quick example text to build on the card title and make up the bulk of
-      the card's content. #ekrem
+      the card's content. #category
     </p>
-    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
   </div>
 
   <img

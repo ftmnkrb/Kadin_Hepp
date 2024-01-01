@@ -1,4 +1,5 @@
 @import "../../../../colors.scss";
+@import "../../../../breakpoints.scss";
 
 ul {
   padding: 0;
@@ -26,6 +27,22 @@ ul {
       }
       &:hover {
         border: 1px solid $primary;
+      }
+
+      @media screen and (max-width: $xl) {
+        justify-content: center;
+        i {
+          margin: 0;
+        }
+        span {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: $md) {
+        i {
+          font-size: 0.9rem;
+        }
       }
     }
   }

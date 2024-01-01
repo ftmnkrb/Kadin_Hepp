@@ -1,4 +1,37 @@
 @import "../../../../colors.scss";
+@import "../../../../breakpoints.scss";
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  .card-profile {
+    display: flex;
+    align-items: start;
+    img {
+      border-radius: 50%;
+      max-width: 60px;
+    }
+    .profile-name {
+      margin-left: 0.5rem;
+      display: flex;
+      align-items: center;
+      span:last-child {
+        font-size: 0.8rem;
+        color: #555;
+        margin-left: 0.5rem;
+      }
+
+      @media screen and (max-width: $md) {
+        span:first-child {
+          font-size: 0.8rem;
+        }
+        span:last-child {
+          display: none;
+        }
+      }
+    }
+  }
+}
 
 .post-card-footer {
   button.post-card-btn {
@@ -9,9 +42,9 @@
       color: $primary;
     }
     span {
-        color: #555;
-        font-size: 0.8rem;
-        margin-left: 0.25rem;
+      color: #555;
+      font-size: 0.8rem;
+      margin-left: 0.25rem;
     }
   }
 }
