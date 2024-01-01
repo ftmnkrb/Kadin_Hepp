@@ -1,15 +1,26 @@
 <div [ngClass]="styleClass" class="card">
-  <img
-    src="https://oceanview4luz.files.wordpress.com/2013/01/sunset-for-front-room-i.jpg"
-    class="card-img-top"
-    alt="..."
-  />
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">
+    <p class="card-text" highlightHashtag>
       Some quick example text to build on the card title and make up the bulk of
-      the card's content.
+      the card's content. #ekrem
     </p>
     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+
+  <img
+    src="https://oceanview4luz.files.wordpress.com/2013/01/sunset-for-front-room-i.jpg"
+    class="card-img"
+    alt="..."
+  />
+  <div class="post-card-footer d-flex justify-content-between py-1 px-3">
+    <button class="btn post-card-btn">
+      <i class="bi bi-chat"></i>
+      <span>11</span>
+    </button>
+    <button class="btn post-card-btn"><i class="bi bi-share"></i></button>
+    <button class="btn post-card-btn">
+      <i class="bi bi-suit-heart"></i>
+      <span>11</span>
+    </button>
   </div>
 </div>

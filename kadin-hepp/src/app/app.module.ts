@@ -8,6 +8,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { PostCardComponent } from './shared/components/post-card/post-card.component';
 import { HomepageNavComponent } from './components/homepage/homepage-nav/homepage-nav.component';
 import { UnderCunstructionComponent } from './shared/components/under-cunstruction.component';
+import { CreatePostComponent } from './shared/components/create-post/create-post.component';
+import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag.directive';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { UnderCunstructionComponent } from './shared/components/under-cunstructi
     PostCardComponent,
     HomepageNavComponent,
     UnderCunstructionComponent,
+    CreatePostComponent,
+    HighlightHashtagDirective,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

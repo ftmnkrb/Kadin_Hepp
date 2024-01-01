@@ -1,0 +1,28 @@
+<div class="create-post-container" [ngClass]="styleClass">
+  <div class="row">
+    <div class="col-2">
+      <img
+        class="img-fluid photo-rounded"
+        src="https://pbs.twimg.com/profile_images/1487507507522244610/ENjs_2eE_400x400.jpg"
+        alt=""
+      />
+    </div>
+    <div class="col-10">
+      <div class="post">
+        <textarea
+          (keyup)="autoGrowTextZone($event)"
+          class="w-100"
+          rows="3"
+          placeholder="Neler oluyor?"
+        ></textarea>
+      </div>
+      <div class="post-bottom d-flex justify-content-between">
+        <div class="inputs">
+          <button class="btn"><i class="bi bi-card-image"></i></button>
+          <button class="btn"><i class="bi bi-geo-alt"></i></button>
+        </div>
+        <button class="btn btn-primary text-white">Gönder</button>
+      </div>
+    </div>
+  </div>
+</div>

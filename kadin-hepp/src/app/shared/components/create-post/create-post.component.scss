@@ -1,0 +1,35 @@
+@import "../../../../colors.scss";
+
+.create-post-container {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $primary;
+
+  .photo-rounded {
+    border-radius: 50%;
+  }
+
+  .post {
+    textarea {
+      padding: 0.5rem;
+      border: none;
+      resize: none;
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
+  .post-bottom {
+    .inputs {
+      button {
+        &:active {
+            border-color: transparent;
+        }
+      }
+      i {
+        color: $primary;
+      }
+    }
+  }
+}

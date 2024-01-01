@@ -1,0 +1,17 @@
+@import "../../../../colors.scss";
+
+.post-card-footer {
+  button.post-card-btn {
+    display: flex;
+    align-items: center;
+
+    i {
+      color: $primary;
+    }
+    span {
+        color: #555;
+        font-size: 0.8rem;
+        margin-left: 0.25rem;
+    }
+  }
+}
