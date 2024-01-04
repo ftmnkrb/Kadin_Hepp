@@ -10,6 +10,7 @@ import { HomepageNavComponent } from './components/homepage/homepage-nav/homepag
 import { UnderCunstructionComponent } from './shared/components/under-cunstruction.component';
 import { CreatePostComponent } from './shared/components/create-post/create-post.component';
 import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag.directive';
+import { LocationComponent } from './shared/components/location/location.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag
     UnderCunstructionComponent,
     CreatePostComponent,
     HighlightHashtagDirective,
+    LocationComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

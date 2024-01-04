@@ -7,16 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
   hashtags = [
-    'kuafor',
-    'kuafor',
-    'kuafor',
-    'kuafor',
-    'kuafor',
-    'kuafor',
-    'kuafor',
-    'kuafor',
+    'hashtag1',
+    'hashtag2',
+    'hashtag3',
+    'hashtag4',
+    'hashtag5',
+    'hashtag6',
   ];
-  
+
   constructor() {}
 
   ngOnInit(): void {}
