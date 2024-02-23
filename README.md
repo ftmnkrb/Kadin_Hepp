@@ -11,3 +11,6 @@ Our project aims to develop a website where women can share their experiences in
 •	Bootstrap
 •	Ngxs
 •	Visual Studio Code
+
+![image](https://github.com/ftmnkrb/Kadin_Hepp/assets/91590427/02c551e8-b504-46b1-90e5-8ce2bc097bff) ![image](https://github.com/ftmnkrb/Kadin_Hepp/assets/91590427/70eda173-aa36-44bc-a3ee-e86784cbfca4)
+
