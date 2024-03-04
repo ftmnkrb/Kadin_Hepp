@@ -1,0 +1,25 @@
+@import "src/styles/breakpoints.scss";
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  .card {
+    border-radius: 24px;
+    width: 30%;
+
+    @media screen and (max-width: $xxl) {
+      width: 40%;
+    }
+
+    @media screen and (max-width: $lg) {
+      width: 60%;
+    }
+
+    @media screen and (max-width: $md) {
+      width: 85%;
+    }
+  }
+}

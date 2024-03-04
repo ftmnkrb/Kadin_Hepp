@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UnderCunstructionComponent } from './shared/components/under-cunstruction.component';
 
 const routes: Routes = [
   {
@@ -9,9 +8,15 @@ const routes: Routes = [
       import('./modules/homepage/homepage.module').then(
         (m) => m.HomepageModule
       ),
+    // canActivate:[authGuard]
   },
-  { path: 'under-cunstruction', component: UnderCunstructionComponent },
-  { path: '**', redirectTo: '/under-cunstruction' },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  // { path: 'under-cunstruction', component: UnderCunstructionComponent },
+  // { path: '**', redirectTo: '/under-cunstruction' },
 ];
 
 @NgModule({
