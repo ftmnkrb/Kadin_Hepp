@@ -10,7 +10,7 @@
     <input formControlName="password" type="password" class="form-control" />
   </div>
   <div class="mb-3">
-    <button type="submit" class="btn btn-primary w-100 text-white fw-semibold">
+    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary w-100 text-white fw-semibold">
       LOGIN
     </button>
     <div class="mt-3 d-flex flex-sm-row flex-column align-items-center">

@@ -7,6 +7,19 @@
   .photo-rounded {
     border-radius: 50%;
   }
+  
+  .photo{
+    display: inline-flex;
+    background-color: $primary;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
 
   .post {
     textarea {

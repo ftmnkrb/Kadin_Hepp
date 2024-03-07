@@ -1,11 +1,15 @@
 <div class="create-post-container" [ngClass]="styleClass">
   <div class="row">
     <div class="col-sm-2 col-3">
-      <img
+      <!-- <img
         class="img-fluid photo-rounded"
         src="https://avatars.githubusercontent.com/u/91590427?v=4"
         alt=""
-      />
+      /> -->
+      <span class="photo">
+        {{ (user$ | async)?.user?.name | slice : 0 : 1 }}
+        <!-- {{ user.name }} -->
+      </span>
     </div>
     <div class="col-sm-10 col-9">
       <div class="post">

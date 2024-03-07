@@ -18,7 +18,20 @@
     <input formControlName="rePassword" type="password" class="form-control" />
   </div>
   <div class="mb-3">
-    <button type="submit" class="btn btn-primary w-100 text-white fw-semibold">
+    <label class="form-label">Konum Seç</label>
+    <select formControlName="location" class="form-select">
+      <option value="">Şehir Seçin</option>
+      <option *ngFor="let city of cities" [value]="city">
+        {{ city }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <button
+      [disabled]="registerForm.invalid"
+      type="submit"
+      class="btn btn-primary w-100 text-white fw-semibold"
+    >
       REGISTER
     </button>
     <div class="mt-3 d-flex flex-sm-row flex-column align-items-center">

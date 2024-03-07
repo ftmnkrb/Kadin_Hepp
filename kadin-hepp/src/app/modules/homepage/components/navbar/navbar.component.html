@@ -1,6 +1,8 @@
 <nav class="navbar bg-light border-bottom fixed-top">
   <div class="container-fluid">
-    <div class="container-xl w-100 d-flex justify-content-between align-items-center">
+    <div
+      class="container-xl w-100 d-flex justify-content-between align-items-center"
+    >
       <a class="navbar-brand d-flex align-items-center" routerLink="">
         <span class="fw-bolder d-sm-inline d-none">KADINHEPP</span>
         <img
@@ -29,8 +31,11 @@
         <span class="shortcut">K</span>
       </button> -->
 
-      <div class="d-md-block d-none">
+      <div class="d-md-flex d-none">
         <app-location></app-location>
+        <button (click)="logout()" class="btn btn-sm btn-secondary">
+          <i class="bi bi-door-closed"></i>
+        </button>
       </div>
     </div>
   </div>

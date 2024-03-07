@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-create-post',
@@ -6,11 +7,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+  user$ = this.authService.userState.asObservable();
+
   @Input() styleClass = '';
 
-  constructor() {}
+  user:any
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    // this.authService.userState.subscribe(r=>{
+    //   this.user = r?.user;
+    // })
+  }
 
   autoGrowTextZone(e: any) {
     e.target.style.height = '0px';
