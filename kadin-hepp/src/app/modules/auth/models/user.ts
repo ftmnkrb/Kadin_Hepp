@@ -7,6 +7,11 @@ export interface User {
   password: string;
 }
 
+export interface LoginPayoad {
+  email: string;
+  password: string;
+}
+
 export interface LoginResponse {
   user: User;
   token: string;

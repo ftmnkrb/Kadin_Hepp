@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LoginResponse, User, UserState } from '../models/user';
+import { LoginPayoad, LoginResponse, User, UserState } from '../models/user';
 import { BehaviorSubject, Observable, exhaustMap, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -15,22 +15,20 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  signUp(user: User): Observable<LoginResponse> {
+  signUp(user: User): Observable<User> {
     return this.http
       .post<User>(`${environment.apiUrl}user/register`, user)
       .pipe(
-        switchMap((res) => {
-          return this.signIn(res.name, res.password);
+        tap((res) => {
+          alert('Kayıt Başarılı');
+          this.router.navigate(['/auth']);
         })
       );
   }
 
-  signIn(name: string, password: string): Observable<LoginResponse> {
+  signIn(payload: LoginPayoad): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(`${environment.apiUrl}user/login`, {
-        name,
-        password,
-      })
+      .post<LoginResponse>(`${environment.apiUrl}user/login`, payload)
       .pipe(
         tap((res) => {
           this.userState.next(res);
