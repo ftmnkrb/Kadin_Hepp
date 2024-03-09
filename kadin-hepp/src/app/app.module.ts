@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { UnderCunstructionComponent } from './shared/components/under-cunstruction.component';
 import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     UnderCunstructionComponent,
-    HighlightHashtagDirective,
+    HighlightHashtagDirective
+   
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
