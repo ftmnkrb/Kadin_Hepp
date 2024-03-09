@@ -2,9 +2,13 @@
 /* @import "../node_modules/bootstrap/dist/css/bootstrap.min.css" */
 
 @import "src/styles/colors.scss";
-@import "~bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 body {
-  font-family: "Roboto Slab", serif;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-style: normal;
   min-height: 100vh;
 }
