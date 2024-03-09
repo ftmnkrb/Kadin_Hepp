@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   // { path: 'under-cunstruction', component: UnderCunstructionComponent },
   // { path: '**', redirectTo: '/under-cunstruction' },
+  
 ];
 
 @NgModule({
