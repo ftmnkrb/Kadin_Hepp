@@ -12,4 +12,12 @@ export class AboutUsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goSection() {
+    const element = document.getElementById("section2");
+    // İstediğiniz yere gitmek için scrollTo() kullanabilirsiniz
+    if(element) {
+    element.scrollIntoView( {behavior: "smooth", block: "end", inline: "nearest" }); // Yumuşak bir şekilde kaydırır
+    }
+  }
+
 }

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <!-- Giriş about us resmi -->
 <div class="header">
   <div class="h1 text-center">HAKKIMIZDA</div>
@@ -13,7 +15,7 @@
           Güzellik merkezlerinden, kuaförlerden ve hayatın her alanından paylaşılacak bir deneyim dünyası yaratıyoruz! Kadınların kişisel sağlık ve refahlarına odaklanan bir web sitesi geliştiriyoruz ve adıyla çığır açıyoruz. Bu platform, sadece güzellik hizmetlerini değil, aynı zamanda kadınların yaşamlarında önemli olan her şeyi kapsıyor.
       </p>
       <a>
-        <button class="explore">Devamını Gör</button>
+        <button (click)="goSection()" class="explore">Devamını Gör</button>
       </a>
     </div>
     <div class="videoContainer">
@@ -33,7 +35,7 @@
 </div>
 
 <!-- İkinci kısım  -->
-<div class="responsive-container-block bigContainer background2">
+<div id="section2" class="responsive-container-block bigContainer background2">
   <div class="responsive-container-block Container bottomContainer">
     <div class="videoContainer">
       <img
@@ -104,3 +106,33 @@
 
      </div>
 </section>
+
+
+<!-- footer -->
+<div class="footer">
+  <div class="row m-4">
+    <div class="col-sm-6">
+      <h2>KADINHEPP</h2>
+      <p>&copy; Copyright 2024 All rights reserved.</p>
+    </div>
+    <div class="col-sm-6">
+      <ul class="social-icons mt-3">
+        <li>
+          <a href="" class="social-icon">
+            <i class="fa-brands fa-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a href="" class="social-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </li>
+      <li>
+        <a href="" class="social-icon">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>

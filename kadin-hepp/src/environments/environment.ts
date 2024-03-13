@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://kadinhepp-7229fba7916e.herokuapp.com/"
+  apiUrl: ""
 };
 
 /*
