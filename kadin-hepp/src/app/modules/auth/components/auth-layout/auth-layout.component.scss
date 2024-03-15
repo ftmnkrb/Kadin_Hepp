@@ -1,5 +1,7 @@
 @import "src/styles/breakpoints.scss";
 
+
+
 .auth-container {
   display: flex;
   align-items: center;
@@ -35,5 +37,16 @@
     text-decoration: underline;
   }
 }
+
+// .container-fluid{
+//   position: fixed;
+//   left: 0;
+//   top: 0;
+//   min-height: 100vh;
+//   min-width: 100vw;
+//   background-color: #f26665;
+// }
+
+
 
 

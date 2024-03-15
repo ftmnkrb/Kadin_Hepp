@@ -1,0 +1,33 @@
+@import "/src/styles/colors.scss";
+@import "/src/styles/breakpoints.scss";
+
+.container-fluid {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: $info;
+
+  .card {
+    border-radius: 24px;
+    width: 60%;
+    height: 60%;
+
+    @media screen and (max-width:$md){
+      width: 90%;
+    }
+
+    @media screen and (max-width:$lg){
+      height:auto;
+    }
+
+    form{
+      margin: auto 0;
+    }
+  }
+}
+
+.bg-left {
+  background-color: #fff;
+}
