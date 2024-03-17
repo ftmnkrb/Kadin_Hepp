@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/post';
+import { Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -6,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
+  allPosts$: Observable<Post[]> = this.postService.allPosts$.asObservable();
+
   hashtags = [
     'hashtag1',
     'hashtag2',
@@ -15,7 +20,9 @@ export class HomepageComponent implements OnInit {
     'hashtag6',
   ];
 
-  constructor() {}
+  constructor(private postService: PostService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.postService.getAllPosts().pipe(take(1)).subscribe();
+  }
 }

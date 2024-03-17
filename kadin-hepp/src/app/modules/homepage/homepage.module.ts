@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { HomepageLayoutComponent } from './components/layout.component';
 import { HomepageNavComponent } from './components/homepage/homepage-nav/homepage-nav.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,11 @@ import { HomepageNavComponent } from './components/homepage/homepage-nav/homepag
     PostCardComponent,
     HomepageNavComponent,
   ],
-  imports: [CommonModule, HomepageRoutingModule],
+  imports: [
+    CommonModule,
+    HomepageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class HomepageModule {}

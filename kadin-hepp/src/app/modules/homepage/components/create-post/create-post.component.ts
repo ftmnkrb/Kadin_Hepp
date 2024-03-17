@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/post';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-create-post',
@@ -11,18 +15,44 @@ export class CreatePostComponent implements OnInit {
 
   @Input() styleClass = '';
 
-  user:any
+  user: any;
 
-  constructor(private authService: AuthService) {}
+  postForm: FormGroup = new FormGroup({
+    content: new FormControl('', Validators.required),
+  });
 
-  ngOnInit(): void {
-    // this.authService.userState.subscribe(r=>{
-    //   this.user = r?.user;
-    // })
-  }
+  constructor(
+    private authService: AuthService,
+    private postService: PostService
+  ) {}
+
+  ngOnInit(): void {}
 
   autoGrowTextZone(e: any) {
     e.target.style.height = '0px';
     e.target.style.height = e.target.scrollHeight + 25 + 'px';
+  }
+
+  createPost() {
+    const newPost: Post = {
+      content: this.postForm.get('content')?.value,
+      createdUser: this.authService.userState.getValue()!.user,
+      likedCount: 0,
+      commentCount: 0,
+      createTime: new Date().getTime(),
+    };
+
+    this.postService
+      .createPost(newPost)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.postForm.reset();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }

@@ -7,6 +7,7 @@
   .card-profile {
     display: flex;
     align-items: start;
+    flex-grow: 1;
     img {
       border-radius: 50%;
       max-width: 60px;
@@ -47,4 +48,18 @@
       margin-left: 0.25rem;
     }
   }
+}
+
+.photo {
+  display: inline-flex;
+  background-color: $primary;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  max-width: 50px;
 }

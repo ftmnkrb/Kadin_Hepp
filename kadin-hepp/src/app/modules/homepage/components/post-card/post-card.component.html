@@ -1,14 +1,15 @@
-<div [ngClass]="styleClass" class="card p-3">
+<div *ngIf="post" [ngClass]="styleClass" class="card p-3">
   <div class="card-top">
     <div class="card-profile">
-      <img
+      <!-- <img
         class="img-fluid"
         src="https://avatars.githubusercontent.com/u/91590427?v=4"
         alt=""
-      />
-      <div class="profile-name">
-        <span>Fatmanur Karabacak</span>
-        <span [innerText]="'@fatmanurkarabacak'"></span>
+      /> -->
+      <span class="photo">{{ post.createdUser.name | slice : 0 : 1 }}</span>
+      <div class="profile-name flex-grow">
+        <span class="d-inline-flex">{{ post.createdUser.name }}</span>
+        <!-- <span [innerText]="post.createdUser."></span> -->
       </div>
     </div>
     <div class="card-edit">
@@ -17,25 +18,24 @@
   </div>
   <div class="card-body px-0">
     <p class="card-text" highlightHashtag>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content. #category
+      {{ post.content }}
     </p>
   </div>
 
-  <img
+  <!-- <img
     src="https://oceanview4luz.files.wordpress.com/2013/01/sunset-for-front-room-i.jpg"
     class="card-img"
     alt="..."
-  />
+  /> -->
   <div class="post-card-footer d-flex justify-content-between py-1">
     <button class="btn post-card-btn">
       <i class="bi bi-chat"></i>
-      <span>11</span>
+      <span>{{ post.commentCount }}</span>
     </button>
     <button class="btn post-card-btn"><i class="bi bi-share"></i></button>
     <button class="btn post-card-btn">
       <i class="bi bi-suit-heart"></i>
-      <span>11</span>
+      <span>{{ post.likedCount }}</span>
     </button>
   </div>
 </div>

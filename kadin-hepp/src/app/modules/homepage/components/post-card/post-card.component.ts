@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-post-card',
@@ -7,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PostCardComponent implements OnInit {
   @Input() styleClass = '';
+  @Input() post: Post | undefined;
 
   constructor() {}
 
