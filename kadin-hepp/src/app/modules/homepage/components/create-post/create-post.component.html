@@ -1,15 +1,11 @@
-<div class="create-post-container" [ngClass]="styleClass">
+<div
+  *ngIf="user$ | async as user"
+  class="create-post-container"
+  [ngClass]="styleClass"
+>
   <div class="row">
     <div class="col-sm-2 col-3">
-      <!-- <img
-        class="img-fluid photo-rounded"
-        src="https://avatars.githubusercontent.com/u/91590427?v=4"
-        alt=""
-      /> -->
-      <span class="photo">
-        {{ (user$ | async)?.user?.name | slice : 0 : 1 }}
-        <!-- {{ user.name }} -->
-      </span>
+      <img class="img-fluid photo-rounded" [src]="user.user.photo" alt="" />
     </div>
     <form
       [formGroup]="postForm"

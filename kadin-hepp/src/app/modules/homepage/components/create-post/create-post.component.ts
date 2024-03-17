@@ -15,8 +15,6 @@ export class CreatePostComponent implements OnInit {
 
   @Input() styleClass = '';
 
-  user: any;
-
   postForm: FormGroup = new FormGroup({
     content: new FormControl('', Validators.required),
   });

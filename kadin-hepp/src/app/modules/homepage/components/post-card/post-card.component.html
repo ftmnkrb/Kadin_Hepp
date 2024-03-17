@@ -1,12 +1,12 @@
 <div *ngIf="post" [ngClass]="styleClass" class="card p-3">
   <div class="card-top">
     <div class="card-profile">
-      <!-- <img
+      <img
         class="img-fluid"
-        src="https://avatars.githubusercontent.com/u/91590427?v=4"
+        [src]="post.createdUser.photo"
         alt=""
-      /> -->
-      <span class="photo">{{ post.createdUser.name | slice : 0 : 1 }}</span>
+      />
+      <!-- <span class="photo">{{ post.createdUser.name | slice : 0 : 1 }}</span> -->
       <div class="profile-name flex-grow">
         <span class="d-inline-flex">{{ post.createdUser.name }}</span>
         <!-- <span [innerText]="post.createdUser."></span> -->
