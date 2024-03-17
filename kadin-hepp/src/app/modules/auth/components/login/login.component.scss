@@ -14,15 +14,15 @@
     width: 60%;
     height: 60%;
 
-    @media screen and (max-width:$md){
+    @media screen and (max-width: $md) {
       width: 90%;
     }
 
-    @media screen and (max-width:$lg){
-      height:auto;
+    @media screen and (max-width: $lg) {
+      height: auto;
     }
 
-    form{
+    form {
       margin: auto 0;
     }
   }
@@ -32,8 +32,8 @@
   background-color: #fff;
 }
 
-.bg-right{
-  background-image: url('../../../../../assets/photos/login_.jpg');
+.bg-right {
+  background-image: url("../../../../../assets/photos/login_.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
