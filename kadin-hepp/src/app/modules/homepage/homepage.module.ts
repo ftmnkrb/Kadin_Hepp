@@ -10,6 +10,7 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 import { HomepageLayoutComponent } from './components/layout.component';
 import { HomepageNavComponent } from './components/homepage/homepage-nav/homepage-nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighlightHashtagDirective } from 'src/app/shared/directives/highlight-hashtag.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     PostCardComponent,
     HomepageNavComponent,
+    HighlightHashtagDirective
   ],
   imports: [
     CommonModule,

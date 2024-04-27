@@ -23,7 +23,6 @@ export class PostService {
         return posts.sort((a, b) => b.createTime - a.createTime);
       }),
       tap((res) => {
-        console.log(res);
         this.allPosts$.next(res);
       })
     );
@@ -34,7 +33,6 @@ export class PostService {
       .post<{ name: string }>(`${environment.firebaseUrl}/posts.json`, body)
       .pipe(
         exhaustMap((res) => {
-          console.log(res);
           return this.getPostById(res.name);
         }),
         tap((post) => {
@@ -44,8 +42,77 @@ export class PostService {
   }
 
   getPostById(postId: string): Observable<Post> {
-    return this.http.get<Post>(
-      `${environment.firebaseUrl}/posts/${postId}.json`
+    return this.http
+      .get<Post>(`${environment.firebaseUrl}/posts/${postId}.json`)
+      .pipe(
+        map((post) => {
+          return { ...post, id: postId };
+        })
+      );
+  }
+
+  deletePost(postId: string): Observable<Post> {
+    return this.http
+      .delete<Post>(`${environment.firebaseUrl}/posts/${postId}.json`)
+      .pipe(
+        tap(() => {
+          this.allPosts$.next(
+            this.allPosts$.getValue().filter((p) => p.id !== postId)
+          );
+        })
+      );
+  }
+
+  likePost(postId: string, userId: string): Observable<Post> {
+    return this.getPostById(postId).pipe(
+      exhaustMap((_post) => {
+        const likedUsers: string[] = _post.likedUsers
+          ? [..._post.likedUsers, userId]
+          : [userId];
+
+        const up: Post = {
+          ..._post,
+          likedUsers,
+        };
+        return this.http.put<Post>(
+          `${environment.firebaseUrl}/posts/${_post.id}.json`,
+          up
+        );
+      }),
+      tap((res) => {
+        this.allPosts$.next(
+          this.allPosts$.getValue().map((p) => {
+            if (p.id == res.id) return res;
+            return p;
+          })
+        );
+      })
+    );
+  }
+
+  disLike(postId: string, userId: string): Observable<Post> {
+    return this.getPostById(postId).pipe(
+      exhaustMap((_post) => {
+        const likedUsers: string[] =
+          _post.likedUsers?.filter((u) => u !== userId) || [];
+
+        const up: Post = {
+          ..._post,
+          likedUsers,
+        };
+        return this.http.put<Post>(
+          `${environment.firebaseUrl}/posts/${_post.id}.json`,
+          up
+        );
+      }),
+      tap((res) => {
+        this.allPosts$.next(
+          this.allPosts$.getValue().map((p) => {
+            if (p.id == res.id) return res;
+            return p;
+          })
+        );
+      })
     );
   }
 }

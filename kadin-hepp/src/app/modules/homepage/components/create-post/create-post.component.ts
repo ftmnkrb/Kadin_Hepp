@@ -35,7 +35,7 @@ export class CreatePostComponent implements OnInit {
     const newPost: Post = {
       content: this.postForm.get('content')?.value,
       createdUser: this.authService.userState.getValue()!.user,
-      likedCount: 0,
+      likedUsers: null,
       commentCount: 0,
       createTime: new Date().getTime(),
     };

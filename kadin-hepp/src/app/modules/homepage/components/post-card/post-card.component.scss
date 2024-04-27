@@ -35,16 +35,17 @@
 }
 
 .post-card-footer {
-  button.post-card-btn {
+  .post-card-container {
     display: flex;
     align-items: center;
 
     i {
       color: $primary;
+      cursor: pointer;
     }
     span {
-      color: #555;
-      font-size: 0.8rem;
+      color: #777;
+      font-size: 0.75rem;
       margin-left: 0.25rem;
     }
   }

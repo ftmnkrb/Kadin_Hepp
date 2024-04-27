@@ -4,7 +4,7 @@ export interface Post {
   id?: string;
   createdUser: User;
   content: string;
-  likedCount: number;
+  likedUsers: string[] | null;
   commentCount: number;
   createTime: number;
 }
