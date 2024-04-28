@@ -15,8 +15,10 @@
         </div>
       </div>
       <div class="col-xl-3 col-2 d-md-block d-none sticky">
-        <span *ngFor="let hashtag of hashtags" class="badge bg-primary m-1"
-          >#{{ hashtag }}</span
+        <span
+          *ngFor="let hashtag of hashtags$ | async"
+          class="badge bg-primary m-1"
+          >{{ hashtag }}</span
         >
       </div>
     </div>

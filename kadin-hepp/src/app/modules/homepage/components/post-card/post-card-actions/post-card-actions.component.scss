@@ -1,0 +1,15 @@
+::ng-deep {
+  .p-overlaypanel-content {
+    width: 100px;
+    padding: 0 !important;
+
+    button {
+        text-align: left;
+        font-size: 0.9rem;
+
+        &:hover{
+            background-color: #9999991c;
+        }
+    }
+  }
+}

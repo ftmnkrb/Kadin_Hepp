@@ -3,18 +3,19 @@
     <div class="card-profile">
       <img class="img-fluid" [src]="post.createdUser.photo" alt="" />
       <div class="profile-name flex-grow">
-        <span class="d-inline-flex text-capitalize">{{ post.createdUser.name }}</span>
+        <span class="d-inline-flex text-capitalize">{{
+          post.createdUser.name
+        }}</span>
       </div>
     </div>
     <div class="card-edit">
       <!-- <button class="btn p-0"><i class="bi bi-three-dots-vertical"></i></button> -->
-      <button
-        *ngIf="post.createdUser._id === (authUser$ | async)?.user?._id"
-        (click)="deletePost(post.id!)"
-        class="btn btn-danger"
-      >
-        X
-      </button>
+
+      <app-post-card-actions
+        [isCreatedByMe]="
+          post.createdUser._id === (authUser$ | async)?.user?._id
+        "
+      ></app-post-card-actions>
     </div>
   </div>
   <div class="card-body px-0">
@@ -29,11 +30,11 @@
     alt="..."
   /> -->
   <div class="post-card-footer d-flex justify-content-between py-1">
-    <button class="btn post-card-btn">
+    <div class="post-card-container">
       <i class="bi bi-chat"></i>
       <span>{{ post.commentCount }}</span>
-    </button>
-    <button class="btn post-card-btn"><i class="bi bi-share"></i></button>
+    </div>
+    <div class="post-card-container"><i class="bi bi-share"></i></div>
     <div class="post-card-container">
       <i
         [ngClass]="isLikedByUser() ? 'bi-heart-fill' : 'bi-suit-heart'"

@@ -12,6 +12,13 @@ import { HomepageNavComponent } from './components/homepage/homepage-nav/homepag
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighlightHashtagDirective } from 'src/app/shared/directives/highlight-hashtag.directive';
 
+import { PostCardActionsComponent } from './components/post-card/post-card-actions/post-card-actions.component';
+
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
+const PRIMENG = [SplitButtonModule, OverlayPanelModule];
+
 @NgModule({
   declarations: [
     HomepageLayoutComponent,
@@ -21,13 +28,15 @@ import { HighlightHashtagDirective } from 'src/app/shared/directives/highlight-h
     NavbarComponent,
     PostCardComponent,
     HomepageNavComponent,
-    HighlightHashtagDirective
+    HighlightHashtagDirective,
+    PostCardActionsComponent,
   ],
   imports: [
     CommonModule,
     HomepageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ...PRIMENG,
   ],
 })
 export class HomepageModule {}

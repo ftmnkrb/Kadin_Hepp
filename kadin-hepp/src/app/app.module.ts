@@ -9,13 +9,17 @@ import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag
 
 import { BlockUIModule } from 'primeng/blockui';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UnderCunstructionComponent,
+  declarations: [AppComponent, UnderCunstructionComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BlockUIModule,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BlockUIModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
