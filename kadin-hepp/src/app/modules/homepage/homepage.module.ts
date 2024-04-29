@@ -16,8 +16,23 @@ import { PostCardActionsComponent } from './components/post-card/post-card-actio
 
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogModule,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
+import { ConfirmationService } from 'primeng/api';
 
-const PRIMENG = [SplitButtonModule, OverlayPanelModule];
+const PRIMENG = [
+  SplitButtonModule,
+  OverlayPanelModule,
+  ConfirmDialogModule,
+  ConfirmPopupModule,
+  DynamicDialogModule,
+];
 
 @NgModule({
   declarations: [
@@ -37,6 +52,12 @@ const PRIMENG = [SplitButtonModule, OverlayPanelModule];
     FormsModule,
     ReactiveFormsModule,
     ...PRIMENG,
+  ],
+  providers: [
+    ConfirmationService,
+    DialogService,
+    DynamicDialogRef,
+    DynamicDialogConfig,
   ],
 })
 export class HomepageModule {}

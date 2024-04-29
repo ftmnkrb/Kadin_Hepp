@@ -41,6 +41,24 @@ export class PostService {
       );
   }
 
+  updatePost(body: Post): Observable<Post> {
+    return this.http
+      .put<Post>(`${environment.firebaseUrl}/posts/${body.id}.json`, body)
+      .pipe(
+        exhaustMap((res) => {
+          return this.getPostById(res.id!);
+        }),
+        tap((post) => {
+          this.allPosts$.next([
+            ...this.allPosts$.getValue().map((p) => {
+              if (p.id == post.id) return post;
+              else return p;
+            }),
+          ]);
+        })
+      );
+  }
+
   getPostById(postId: string): Observable<Post> {
     return this.http
       .get<Post>(`${environment.firebaseUrl}/posts/${postId}.json`)

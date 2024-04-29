@@ -7,11 +7,7 @@
     <div class="col-sm-2 col-3">
       <img class="img-fluid photo-rounded" [src]="user.user.photo" alt="" />
     </div>
-    <form
-      [formGroup]="postForm"
-      (ngSubmit)="createPost()"
-      class="col-sm-10 col-9"
-    >
+    <form [formGroup]="postForm" (ngSubmit)="submit()" class="col-sm-10 col-9">
       <div>
         <div class="post">
           <textarea
@@ -46,6 +42,8 @@
       <button class="btn"><i class="bi bi-card-image"></i></button>
       <button class="btn"><i class="bi bi-geo-alt"></i></button>
     </div>
-    <button type="submit" class="btn btn-primary text-white">Gönder</button>
+    <button type="submit" class="btn btn-primary text-white">
+      {{ updateMode ? "Update" : "Create" }}
+    </button>
   </div>
 </ng-template>

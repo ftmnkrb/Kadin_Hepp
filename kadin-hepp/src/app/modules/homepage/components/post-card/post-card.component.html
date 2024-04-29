@@ -15,6 +15,7 @@
         [isCreatedByMe]="
           post.createdUser._id === (authUser$ | async)?.user?._id
         "
+        [post]="post"
       ></app-post-card-actions>
     </div>
   </div>
