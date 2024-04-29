@@ -12,6 +12,10 @@ import { Observable } from 'rxjs';
         <span class="visually-hidden">Loading...</span>
       </div>
     </p-blockUI>
+    <p-toast
+      position="bottom-center
+"
+    ></p-toast>
   `,
   styles: [],
 })

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
 import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
 export class PostService {
   allPosts$ = new BehaviorSubject<Post[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastService: ToastService) {}
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
@@ -37,6 +38,11 @@ export class PostService {
         }),
         tap((post) => {
           this.allPosts$.next([post, ...this.allPosts$.getValue()]);
+
+          this.toastService.addSingle(
+            'success',
+            'Gönderi Başarıyla Oluşturuldu'
+          );
         })
       );
   }
@@ -49,6 +55,7 @@ export class PostService {
           return this.getPostById(res.id!);
         }),
         tap((post) => {
+          this.toastService.addSingle('info', 'Gönderi Başarıyla Güncellendi');
           this.allPosts$.next([
             ...this.allPosts$.getValue().map((p) => {
               if (p.id == post.id) return post;
@@ -74,6 +81,7 @@ export class PostService {
       .delete<Post>(`${environment.firebaseUrl}/posts/${postId}.json`)
       .pipe(
         tap(() => {
+          this.toastService.addSingle('warn', 'Gönderi Başarıyla Silindi');
           this.allPosts$.next(
             this.allPosts$.getValue().filter((p) => p.id !== postId)
           );

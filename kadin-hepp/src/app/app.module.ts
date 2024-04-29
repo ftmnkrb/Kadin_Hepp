@@ -5,11 +5,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UnderCunstructionComponent } from './shared/components/under-cunstruction.component';
-import { HighlightHashtagDirective } from './shared/directives/highlight-hashtag.directive';
 
-import { BlockUIModule } from 'primeng/blockui';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { BlockUIModule } from 'primeng/blockui';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+const PRIMENG = [BlockUIModule, ToastModule];
 
 @NgModule({
   declarations: [AppComponent, UnderCunstructionComponent],
@@ -18,9 +22,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    BlockUIModule,
+
+    ...PRIMENG,
   ],
   providers: [
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
