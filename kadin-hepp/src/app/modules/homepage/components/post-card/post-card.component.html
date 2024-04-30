@@ -1,41 +1,48 @@
-<div [ngClass]="styleClass" class="card p-3">
+<div *ngIf="post" [ngClass]="styleClass" class="card p-3">
   <div class="card-top">
     <div class="card-profile">
-      <img
-        class="img-fluid"
-        src="https://avatars.githubusercontent.com/u/91590427?v=4"
-        alt=""
-      />
-      <div class="profile-name">
-        <span>Fatmanur Karabacak</span>
-        <span [innerText]="'@fatmanurkarabacak'"></span>
+      <img class="img-fluid" [src]="post.createdUser.photo" alt="" />
+      <div class="profile-name flex-grow">
+        <span class="d-inline-flex text-capitalize">{{
+          post.createdUser.name
+        }}</span>
       </div>
     </div>
     <div class="card-edit">
-      <button class="btn p-0"><i class="bi bi-three-dots-vertical"></i></button>
+      <!-- <button class="btn p-0"><i class="bi bi-three-dots-vertical"></i></button> -->
+
+      <app-post-card-actions
+        [isCreatedByMe]="
+          post.createdUser._id === (authUser$ | async)?.user?._id
+        "
+        [post]="post"
+      ></app-post-card-actions>
     </div>
   </div>
   <div class="card-body px-0">
     <p class="card-text" highlightHashtag>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content. #category
+      {{ post.content }}
     </p>
   </div>
 
-  <img
+  <!-- <img
     src="https://oceanview4luz.files.wordpress.com/2013/01/sunset-for-front-room-i.jpg"
     class="card-img"
     alt="..."
-  />
+  /> -->
   <div class="post-card-footer d-flex justify-content-between py-1">
-    <button class="btn post-card-btn">
+    <div class="post-card-container">
       <i class="bi bi-chat"></i>
-      <span>11</span>
-    </button>
-    <button class="btn post-card-btn"><i class="bi bi-share"></i></button>
-    <button class="btn post-card-btn">
-      <i class="bi bi-suit-heart"></i>
-      <span>11</span>
-    </button>
+      <span>{{ post.commentCount }}</span>
+    </div>
+    <div class="post-card-container"><i class="bi bi-share"></i></div>
+    <div class="post-card-container">
+      <i
+        [ngClass]="isLikedByUser() ? 'bi-heart-fill' : 'bi-suit-heart'"
+        (click)="like(post.id)"
+        class="bi"
+      ></i>
+      <span>{{ post.likedUsers?.length || 0 }}</span>
+    </div>
   </div>
 </div>

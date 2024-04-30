@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/post';
+import { Observable, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -6,16 +9,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  hashtags = [
-    'hashtag1',
-    'hashtag2',
-    'hashtag3',
-    'hashtag4',
-    'hashtag5',
-    'hashtag6',
-  ];
+  allPosts$: Observable<Post[]> = this.postService.allPosts$.asObservable();
 
-  constructor() {}
+  hashtags$: Observable<string[]> = this.allPosts$.pipe(
+    map((posts) => {
+      var regex = /#(\w+)/g;
+      let res: string[] = [];
 
-  ngOnInit(): void {}
+      posts.forEach((p) => {
+        if (p.content.includes('#')) {
+          const matches = p.content.match(regex);
+          if (matches?.length) {
+            matches.forEach((m) => {
+              if (res.indexOf(m) <= -1) {
+                res.push(...matches);
+              }
+            });
+          }
+        }
+      });
+
+      return res;
+    })
+  );
+
+  constructor(private postService: PostService) {}
+
+  ngOnInit(): void {
+    this.postService.getAllPosts().pipe(take(1)).subscribe();
+  }
 }

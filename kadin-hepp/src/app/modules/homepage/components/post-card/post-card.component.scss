@@ -7,6 +7,7 @@
   .card-profile {
     display: flex;
     align-items: start;
+    flex-grow: 1;
     img {
       border-radius: 50%;
       max-width: 60px;
@@ -34,17 +35,33 @@
 }
 
 .post-card-footer {
-  button.post-card-btn {
+  .post-card-container {
     display: flex;
     align-items: center;
 
     i {
       color: $primary;
+      cursor: pointer;
     }
     span {
-      color: #555;
-      font-size: 0.8rem;
+      color: #777;
+      font-size: 0.75rem;
       margin-left: 0.25rem;
+      width: 15px;
     }
   }
+}
+
+.photo {
+  display: inline-flex;
+  background-color: $primary;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  max-width: 50px;
 }

@@ -24,7 +24,7 @@ export class HighlightHashtagDirective {
     // Metni işleyerek # ile başlayan ifadeleri bulup renklendirin ve link ekleyin
     const regex = /#(\w+)/g;
     const highlightedText = text.replace(regex, (match, hashtag) => {
-      const link = `<a href="/search/${hashtag}" style="color: ${this.highlightColor}">#${hashtag}</a>`;
+      const link = `<a href="#" style="color: ${this.highlightColor}">#${hashtag}</a>`;
       return link;
     });
 

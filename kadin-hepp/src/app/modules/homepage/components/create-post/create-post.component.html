@@ -1,36 +1,35 @@
-<div class="create-post-container" [ngClass]="styleClass">
+<div
+  *ngIf="user$ | async as user"
+  class="create-post-container"
+  [ngClass]="styleClass"
+>
   <div class="row">
     <div class="col-sm-2 col-3">
-      <!-- <img
-        class="img-fluid photo-rounded"
-        src="https://avatars.githubusercontent.com/u/91590427?v=4"
-        alt=""
-      /> -->
-      <span class="photo">
-        {{ (user$ | async)?.user?.name | slice : 0 : 1 }}
-        <!-- {{ user.name }} -->
-      </span>
+      <img class="img-fluid photo-rounded" [src]="user.user.photo" alt="" />
     </div>
-    <div class="col-sm-10 col-9">
-      <div class="post">
-        <textarea
-          (keyup)="autoGrowTextZone($event)"
-          class="w-100"
-          rows="3"
-          placeholder="Neler oluyor?"
-        ></textarea>
+    <form [formGroup]="postForm" (ngSubmit)="submit()" class="col-sm-10 col-9">
+      <div>
+        <div class="post">
+          <textarea
+            (keyup)="autoGrowTextZone($event)"
+            class="w-100"
+            rows="3"
+            placeholder="Neler oluyor?"
+            formControlName="content"
+          ></textarea>
+        </div>
+        <ng-template
+          [ngTemplateOutlet]="postBottomCont"
+          [ngTemplateOutletContext]="{ isMobile: false }"
+        >
+        </ng-template>
       </div>
       <ng-template
         [ngTemplateOutlet]="postBottomCont"
-        [ngTemplateOutletContext]="{ isMobile: false }"
+        [ngTemplateOutletContext]="{ isMobile: true }"
       >
       </ng-template>
-    </div>
-    <ng-template
-      [ngTemplateOutlet]="postBottomCont"
-      [ngTemplateOutletContext]="{ isMobile: true }"
-    >
-    </ng-template>
+    </form>
   </div>
 </div>
 
@@ -43,6 +42,8 @@
       <button class="btn"><i class="bi bi-card-image"></i></button>
       <button class="btn"><i class="bi bi-geo-alt"></i></button>
     </div>
-    <button class="btn btn-primary text-white">Gönder</button>
+    <button type="submit" class="btn btn-primary text-white">
+      {{ updateMode ? "Edit" : "Create" }}
+    </button>
   </div>
 </ng-template>

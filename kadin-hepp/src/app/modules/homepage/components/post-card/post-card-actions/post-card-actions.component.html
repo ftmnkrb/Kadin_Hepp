@@ -1,0 +1,21 @@
+<p-confirmPopup></p-confirmPopup>
+
+<button class="btn p-0" (click)="op.toggle($event)">
+  <i class="bi bi-three-dots-vertical"></i>
+</button>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <button *ngIf="isCreatedByMe" class="btn w-100" (click)="editPost()">
+      Edit
+    </button>
+    <button *ngIf="!isCreatedByMe" class="btn w-100">Report</button>
+    <button
+      *ngIf="isCreatedByMe"
+      class="btn w-100"
+      (click)="deletePost($event)"
+    >
+      Delete
+    </button>
+  </ng-template>
+</p-overlayPanel>

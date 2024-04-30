@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://kadinhepp-7229fba7916e.herokuapp.com/',
+  apiUrl: 'http://localhost:3000/',
+  firebaseUrl: 'https://kadinhepp-default-rtdb.firebaseio.com/',
 };
 
 /*
