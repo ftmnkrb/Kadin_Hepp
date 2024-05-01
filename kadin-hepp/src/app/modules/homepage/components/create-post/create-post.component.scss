@@ -2,13 +2,16 @@
 
 .create-post-container {
   padding-bottom: 1rem;
-  border-bottom: 1px solid $primary;
+
+  &.border-bottom-primary {
+    border-bottom: 1px solid $primary;
+  }
 
   .photo-rounded {
     border-radius: 50%;
   }
-  
-  .photo{
+
+  .photo {
     display: inline-flex;
     background-color: $primary;
     width: 100%;
@@ -35,14 +38,39 @@
 
   .post-bottom {
     .inputs {
+      padding: 0 0.5rem;
       button {
         &:active {
-            border-color: transparent;
+          border-color: transparent;
         }
       }
       i {
         color: $primary;
       }
+    }
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.opacity-02 {
+  opacity: 0.3;
+}
+
+.create-post-images {
+  .img-container {
+    display: inline-block;
+    position: relative;
+
+    i {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translate(25%, -25%);
+      scale: 1.5;
+      cursor: pointer;
     }
   }
 }

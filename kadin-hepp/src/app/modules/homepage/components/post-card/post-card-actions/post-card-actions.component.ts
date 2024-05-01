@@ -37,6 +37,7 @@ export class PostCardActionsComponent implements OnInit {
   editPost() {
     const ref = this.dialogService.open(CreatePostComponent, {
       header: 'Edit Post',
+      draggable: true,
       data: {
         post: this.post,
       },

@@ -7,4 +7,5 @@ export interface Post {
   likedUsers: string[] | null;
   commentCount: number;
   createTime: number;
+  images: string[];
 }

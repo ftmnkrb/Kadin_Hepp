@@ -10,6 +10,11 @@ import { PostService } from '../../services/post.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { take } from 'rxjs';
 import { MenuItem } from 'primeng/api';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-post-card',
@@ -28,7 +33,8 @@ export class PostCardComponent implements OnInit {
   constructor(
     private postService: PostService,
     private authService: AuthService,
-    private cr: ChangeDetectorRef
+    private cr: ChangeDetectorRef,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -79,5 +85,26 @@ export class PostCardComponent implements OnInit {
   isLikedByUser(): boolean {
     const userId = this.authService.userState.getValue()!.user._id;
     return this.post?.likedUsers?.includes(userId || '') || false;
+  }
+
+  openImage(img: string) {
+    this.dialogService.open(ShowImageComponent, {
+      closeOnEscape: true,
+      dismissableMask: true,
+      data: {
+        img,
+      },
+    });
+  }
+}
+
+@Component({
+  selector: 'app-show-image',
+  template: ` <img [src]="imgUrl" alt="" /> `,
+})
+export class ShowImageComponent {
+  imgUrl: string;
+  constructor(private ddConf: DynamicDialogConfig) {
+    this.imgUrl = ddConf.data.img;
   }
 }

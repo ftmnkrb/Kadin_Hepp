@@ -13,6 +13,10 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
+import { environment } from 'src/environments/environment';
+
 const PRIMENG = [BlockUIModule, ToastModule];
 
 @NgModule({
@@ -24,6 +28,9 @@ const PRIMENG = [BlockUIModule, ToastModule];
     HttpClientModule,
 
     ...PRIMENG,
+
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
   ],
   providers: [
     MessageService,
@@ -32,6 +39,7 @@ const PRIMENG = [BlockUIModule, ToastModule];
       useClass: LoadingInterceptor,
       multi: true,
     },
+    { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket },
   ],
   bootstrap: [AppComponent],
 })

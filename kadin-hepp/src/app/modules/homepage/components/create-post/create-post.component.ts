@@ -1,10 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { take } from 'rxjs';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Observable, finalize } from 'rxjs';
+import { LoadingService } from 'src/app/shared/services/loading.service';
+
+// TODO => şuan submit edilmese de fotoğraflar database'de kalıyor.
 
 @Component({
   selector: 'app-create-post',
@@ -21,19 +34,26 @@ export class CreatePostComponent implements OnInit {
     content: new FormControl('', Validators.required),
   });
 
+  selectedFile: File | null = null;
+  images: string[] = [];
+  downloadURL!: Observable<string>;
+
   constructor(
     private authService: AuthService,
     private postService: PostService,
     public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private storage: AngularFireStorage,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
     if (this.config.data) {
+      const post: Post = this.config.data.post;
       this.updateMode = true;
-      this.postForm.patchValue(this.config.data.post);
+      this.postForm.patchValue(post);
+      if (post.images) this.images = post.images;
     }
-    console.log(this.config.data);
   }
 
   autoGrowTextZone(e: any) {
@@ -55,6 +75,7 @@ export class CreatePostComponent implements OnInit {
       likedUsers: null,
       commentCount: 0,
       createTime: new Date().getTime(),
+      images: this.images.length ? this.images : [],
     };
 
     this.postService
@@ -64,6 +85,7 @@ export class CreatePostComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.postForm.reset();
+          this.images = [];
         },
         error: (err) => {
           console.log(err);
@@ -76,6 +98,7 @@ export class CreatePostComponent implements OnInit {
     const updatedPost: Post = {
       ...prev,
       content: this.postForm.get('content')?.value,
+      images: this.images,
     };
     console.log(updatedPost);
 
@@ -85,6 +108,52 @@ export class CreatePostComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.ref.close();
+        },
+      });
+  }
+
+  // firebase
+
+  onFileSelected(event: any) {
+    if (this.images.length >= 2) {
+      alert('max 2 images');
+      return;
+    }
+    this.loadingService.setLoading(true);
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `PostImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`PostImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe((url) => {
+            if (url) {
+              console.log(url);
+              this.images.push(url);
+            }
+            console.log(this.images);
+          });
+          this.loadingService.setLoading(false);
+        })
+      )
+      .subscribe((url: any) => {
+        if (url) {
+          console.log(url);
+        }
+      });
+  }
+
+  deleteFile(url: string) {
+    this.storage
+      .refFromURL(url)
+      .delete()
+      .subscribe({
+        next: () => {
+          this.images = this.images.filter((i) => i !== url);
         },
       });
   }

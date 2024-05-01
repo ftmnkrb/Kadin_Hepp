@@ -65,3 +65,12 @@
   text-transform: uppercase;
   max-width: 50px;
 }
+
+.post-images {
+  img {
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+}

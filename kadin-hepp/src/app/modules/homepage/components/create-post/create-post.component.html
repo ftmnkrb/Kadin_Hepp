@@ -1,35 +1,55 @@
 <div
   *ngIf="user$ | async as user"
   class="create-post-container"
+  [class.border-bottom-primary]="!updateMode"
   [ngClass]="styleClass"
 >
   <div class="row">
     <div class="col-sm-2 col-3">
       <img class="img-fluid photo-rounded" [src]="user.user.photo" alt="" />
     </div>
-    <form [formGroup]="postForm" (ngSubmit)="submit()" class="col-sm-10 col-9">
-      <div>
-        <div class="post">
-          <textarea
-            (keyup)="autoGrowTextZone($event)"
-            class="w-100"
-            rows="3"
-            placeholder="Neler oluyor?"
-            formControlName="content"
-          ></textarea>
+    <div class="col-sm-10 col-9">
+      <form [formGroup]="postForm" (ngSubmit)="submit()">
+        <div>
+          <div class="post">
+            <textarea
+              (keyup)="autoGrowTextZone($event)"
+              class="w-100"
+              rows="3"
+              placeholder="Neler oluyor?"
+              formControlName="content"
+            ></textarea>
+          </div>
+          <ng-template
+            [ngTemplateOutlet]="postBottomCont"
+            [ngTemplateOutletContext]="{ isMobile: false }"
+          >
+          </ng-template>
         </div>
         <ng-template
           [ngTemplateOutlet]="postBottomCont"
-          [ngTemplateOutletContext]="{ isMobile: false }"
+          [ngTemplateOutletContext]="{ isMobile: true }"
         >
         </ng-template>
+      </form>
+
+      <div class="row mt-3 create-post-images">
+        <div *ngFor="let img of images" class="col">
+          <div class="img-container border rounded h-100">
+            <img
+              style="height: 100%; object-fit: cover; max-height: 300px"
+              class="img-fluid rounded"
+              [src]="img"
+              alt=""
+            />
+            <i
+              (click)="deleteFile(img)"
+              class="text-danger bi bi-x-circle-fill"
+            ></i>
+          </div>
+        </div>
       </div>
-      <ng-template
-        [ngTemplateOutlet]="postBottomCont"
-        [ngTemplateOutletContext]="{ isMobile: true }"
-      >
-      </ng-template>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -39,11 +59,50 @@
     class="post-bottom justify-content-between"
   >
     <div class="inputs">
-      <button class="btn"><i class="bi bi-card-image"></i></button>
-      <button class="btn"><i class="bi bi-geo-alt"></i></button>
+      <div class="d-inline-block">
+        <ng-container *ngIf="!updateMode; else updateFileUpload">
+          <label
+            style="cursor: pointer"
+            for="file-upload"
+            class="custom-file-upload"
+            [ngClass]="{ 'pe-none opacity-02': images.length >= 2 }"
+          >
+            <i class="bi bi-card-image"></i>
+          </label>
+          <input
+            type="file"
+            id="file-upload"
+            (change)="onFileSelected($event)"
+            name="image"
+            autocomplete="off"
+        /></ng-container>
+      </div>
+      <button type="button" class="btn"><i class="bi bi-geo-alt"></i></button>
     </div>
-    <button type="submit" class="btn btn-primary text-white">
+    <button
+      [disabled]="postForm.invalid"
+      type="submit"
+      class="btn btn-primary text-white"
+    >
       {{ updateMode ? "Edit" : "Create" }}
     </button>
   </div>
+</ng-template>
+
+<ng-template #updateFileUpload>
+  <label
+    style="cursor: pointer"
+    for="file-upload-update"
+    class="custom-file-upload"
+    [ngClass]="{ 'pe-none opacity-02': images.length >= 2 }"
+  >
+    <i class="bi bi-card-image"></i>
+  </label>
+  <input
+    type="file"
+    id="file-upload-update"
+    (change)="onFileSelected($event)"
+    name="image"
+    autocomplete="off"
+  />
 </ng-template>
