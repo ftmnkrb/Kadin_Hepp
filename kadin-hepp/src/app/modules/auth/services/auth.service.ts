@@ -2,10 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginPayoad, LoginResponse, User, UserState } from '../models/user';
-import { BehaviorSubject, Observable, exhaustMap, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  exhaustMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { Router } from '@angular/router';
 
 import { jwtDecode } from 'jwt-decode';
+import { UserLocationService } from '../../homepage/services/user-location.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,17 +21,21 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   userState = new BehaviorSubject<UserState | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private uls: UserLocationService
+  ) {}
 
-  signUp(user: User): Observable<User> {
-    return this.http
-      .post<User>(`${environment.apiUrl}user/register`, user)
-      .pipe(
-        tap((res) => {
-          alert('Kayıt Başarılı');
-          this.router.navigate(['/auth']);
-        })
-      );
+  signUp(user: User): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}user/register`, user).pipe(
+      tap((res) => {
+        alert('Kayıt Başarılı');
+        this.router.navigate(['/auth']);
+        console.log(res);
+        this.uls.saveDefaultByUserId(res.data._id!).pipe(take(1)).subscribe();
+      })
+    );
   }
 
   signIn(payload: LoginPayoad): Observable<LoginResponse> {
@@ -34,6 +46,21 @@ export class AuthService {
           this.userState.next(res);
           localStorage.setItem('activeUser', JSON.stringify(res));
           this.router.navigate(['/']);
+          this.uls.getUserLocation(res.user._id!).pipe(take(1)).subscribe();
+
+          this.uls
+            .getUserLocation(res.user._id!)
+            .pipe(take(1))
+            .subscribe({
+              next: (r) => {
+                if (!r) {
+                  this.uls
+                    .saveDefaultByUserId(res.user._id!)
+                    .pipe(take(1))
+                    .subscribe();
+                }
+              },
+            });
         })
       );
   }
@@ -54,8 +81,11 @@ export class AuthService {
     const user = localStorage.getItem('activeUser');
 
     if (user) {
-      const parsedUser = JSON.parse(user);
+      const parsedUser: UserState = JSON.parse(user);
       this.userState.next(parsedUser);
+      this.uls.getUserLocation(parsedUser.user._id!).pipe(take(1)).subscribe();
+    } else {
+      this.logout();
     }
   }
 

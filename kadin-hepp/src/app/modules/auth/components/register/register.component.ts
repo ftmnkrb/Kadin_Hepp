@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from 'src/app/shared/utils/validators';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
-import { cities } from '../../models/cities';
 
 @Component({
   selector: 'app-register',
@@ -11,8 +10,6 @@ import { cities } from '../../models/cities';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  cities = cities;
-
   registerForm = new FormGroup(
     {
       name: new FormControl('', Validators.required),
@@ -22,7 +19,6 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(6),
       ]),
       rePassword: new FormControl(''),
-      location: new FormControl(''),
     },
     { validators: confirmPasswordValidator }
   );
@@ -38,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
     const user: User = {
       email: this.registerForm.get('email')?.value!,
-      location: this.registerForm.get('location')?.value!,
+      location: 'Alanya',
       name: this.registerForm.get('name')?.value!,
       password: this.registerForm.get('password')?.value!,
     };

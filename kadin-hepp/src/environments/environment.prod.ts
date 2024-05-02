@@ -11,4 +11,5 @@ export const environment = {
     messagingSenderId: '454217996926',
     appId: '1:454217996926:web:1be21e498475e131c3d62f',
   },
+  citiesApiUrl: 'https://turkiyeapi.dev/api/v1/',
 };

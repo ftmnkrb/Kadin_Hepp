@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
 import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +17,8 @@ export class PostService {
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
       map((res) => {
-        let posts: Post[] = [];
+        let posts: Post[] = convertFirebaseResponse<typeof res, Post>(res);
 
-        for (const key in res) {
-          posts.push({ ...res[key], id: key });
-        }
         return posts.sort((a, b) => b.createTime - a.createTime);
       }),
       tap((res) => {

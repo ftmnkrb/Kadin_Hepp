@@ -1,0 +1,41 @@
+<div class="p-3">
+  <h3 class="text-center text-primary">Select Location</h3>
+  <hr />
+
+  <p-dropdown
+    [options]="cities?.data"
+    [(ngModel)]="selectedCity"
+    optionLabel="name"
+    styleClass="w-100 mb-2"
+    placeholder="City"
+  ></p-dropdown>
+
+  <p-dropdown
+    *ngIf="selectedCity"
+    [options]="selectedCity.districts"
+    [(ngModel)]="selectedDistrict"
+    (ngModelChange)="getNeighborhoods()"
+    optionLabel="name"
+    styleClass="w-100 mb-2"
+    placeholder="District"
+    [showClear]="true"
+  ></p-dropdown>
+
+  <p-dropdown
+    *ngIf="selectedDistrict"
+    [options]="neighborhoods?.data.neighborhoods"
+    [(ngModel)]="selectedHood"
+    optionLabel="name"
+    styleClass="w-100 mb-2"
+    placeholder="Neighbourhood"
+    [showClear]="true"
+  ></p-dropdown>
+
+  <button
+    (click)="editLocation()"
+    class="btn btn-primary text-white mt-4 w-100"
+    [disabled]="!selectedCity"
+  >
+    Save
+  </button>
+</div>

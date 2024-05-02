@@ -16,16 +16,25 @@ import { MessageService } from 'primeng/api';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
+import { SelectLocationComponent } from './shared/components/select-location/select-location.component';
+import { FormsModule } from '@angular/forms';
 
-const PRIMENG = [BlockUIModule, ToastModule];
+import { DropdownModule } from 'primeng/dropdown';
+
+const PRIMENG = [BlockUIModule, ToastModule, DropdownModule];
 
 @NgModule({
-  declarations: [AppComponent, UnderCunstructionComponent],
+  declarations: [
+    AppComponent,
+    UnderCunstructionComponent,
+    SelectLocationComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
     ...PRIMENG,
 
