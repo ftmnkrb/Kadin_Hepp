@@ -11,6 +11,7 @@ import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
 })
 export class PostService {
   allPosts$ = new BehaviorSubject<Post[]>([]);
+  hastags$ = new BehaviorSubject<string[]>([]);
 
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
@@ -136,6 +137,33 @@ export class PostService {
             return p;
           })
         );
+      })
+    );
+  }
+
+  getHashtags(): Observable<string[]> {
+    return this.getAllPosts().pipe(
+      map((posts) => {
+        var regex = /#(\w+)/g;
+        let res: string[] = [];
+
+        posts.forEach((p) => {
+          if (p.content.includes('#')) {
+            const matches = p.content.match(regex);
+            if (matches?.length) {
+              matches.forEach((m) => {
+                if (res.indexOf(m) <= -1) {
+                  res.push(...matches);
+                }
+              });
+            }
+          }
+        });
+
+        return res;
+      }),
+      tap((hashtags) => {
+        this.hastags$.next(hashtags);
       })
     );
   }

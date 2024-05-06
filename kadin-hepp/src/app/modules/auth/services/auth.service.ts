@@ -13,7 +13,7 @@ import {
 import { Router } from '@angular/router';
 
 import { jwtDecode } from 'jwt-decode';
-import { UserLocationService } from '../../homepage/services/user-location.service';
+import { UserLocationService } from 'src/app/shared/services/user-location.service';
 
 @Injectable({
   providedIn: 'root',
