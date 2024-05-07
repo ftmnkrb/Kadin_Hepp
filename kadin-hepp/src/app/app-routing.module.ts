@@ -2,14 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 
-
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/homepage/homepage.module').then(
-        (m) => m.HomepageModule
-      ),
+      import('./modules/layout/layout.module').then((m) => m.LayoutModule),
     canActivate: [AuthGuard],
   },
   {
@@ -17,9 +14,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
+
   // { path: 'under-cunstruction', component: UnderCunstructionComponent },
   // { path: '**', redirectTo: '/under-cunstruction' },
-  
 ];
 
 @NgModule({

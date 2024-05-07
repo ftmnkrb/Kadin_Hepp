@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { environment } from 'src/environments/environment';
-import { Post } from '../models/post';
-import { UserLocation } from '../models/user-location';
 import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
+import { UserLocation } from '../models/user-location';
 
 @Injectable({
   providedIn: 'root',

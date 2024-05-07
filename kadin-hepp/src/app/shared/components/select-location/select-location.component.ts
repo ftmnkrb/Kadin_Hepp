@@ -6,11 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { CitiesService } from '../../services/cities.service';
-import { UserLocationService } from 'src/app/modules/homepage/services/user-location.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { take } from 'rxjs';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { UserLocation } from 'src/app/modules/homepage/models/user-location';
+import { UserLocationService } from '../../services/user-location.service';
+import { UserLocation } from '../../models/user-location';
 
 @Component({
   selector: 'app-select-location',

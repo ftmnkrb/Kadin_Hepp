@@ -1,0 +1,23 @@
+@import "/src/styles/breakpoints.scss";
+
+.main-container {
+  background-image: url("/assets/ay-takvimi/bg.jpeg");
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%, 50%;
+
+  .main-container-card {
+    background-color: #ffffff88 !important;
+    width: 70%;
+    min-height: 50%;
+
+    @media screen and (max-width:$xxl) {
+      width: 90%;
+    }
+
+    @media screen and (max-width:$sm) {
+      width: 100%;
+    }
+  }
+}

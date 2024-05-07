@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
-  selector: 'app-homepage-nav',
-  templateUrl: './homepage-nav.component.html',
-  styleUrls: ['./homepage-nav.component.scss'],
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss'],
 })
-export class HomepageNavComponent implements OnInit {
+export class SidenavComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}

@@ -1,0 +1,13 @@
+<div *ngIf="date" class="card rounded shadow-lg h-100">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{ date | date : "MMMM d" }}</h5>
+    <div class="d-flex justify-content-center my-3">
+      <div class="mx-2" *ngFor="let i of item?.icons">
+        <img [src]="i" alt="" height="40" />
+      </div>
+    </div>
+    <ul>
+      <li *ngFor="let i of item?.text">{{ i }}</li>
+    </ul>
+  </div>
+</div>
