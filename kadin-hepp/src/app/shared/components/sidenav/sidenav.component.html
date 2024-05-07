@@ -1,6 +1,10 @@
 <ul class="h-100">
   <li>
-    <button routerLink="" routerLinkActive="active">
+    <button
+      routerLink=""
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </button>
@@ -16,7 +20,7 @@
     </button>
   </li>
   <li>
-    <button routerLink="/lunar-calendar">
+    <button routerLink="/lunar-calendar" routerLinkActive="active">
       <i class="fa-solid fa-moon"></i> <span> Ay Takvimi </span>
     </button>
   </li>
