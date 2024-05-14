@@ -19,6 +19,11 @@ const routes: Routes = [
             (m) => m.AyTakvimiModule
           ),
       },
+      {
+        path: 'menstrual-calendar',
+        loadChildren: () =>
+          import('../regl/regl.module').then((m) => m.ReglModule),
+      },
     ],
   },
 ];

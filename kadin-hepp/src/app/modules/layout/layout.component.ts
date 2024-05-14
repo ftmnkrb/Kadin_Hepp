@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'app-layout',
   template: `
-    <ng-container *ngIf="visible; else hideForCalendar">
+    <ng-container *ngIf="!isCalendarView; else hideForCalendar">
       <app-navbar></app-navbar>
 
       <div class="homepage-main-container">
@@ -39,7 +39,28 @@ import {
     </ng-container>
 
     <ng-template #hideForCalendar>
-      <router-outlet></router-outlet>
+      <ng-container *ngIf="!isregl; else hideForRegl">
+        <router-outlet></router-outlet>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #hideForRegl>
+      <app-navbar></app-navbar>
+
+      <div class="homepage-main-container">
+        <div class="container-xxl">
+          <div class="row my-0">
+            <div class="col-xl-3 col-auto sticky" style="min-height: 100vh">
+              <app-sidenav></app-sidenav>
+            </div>
+            <div class="col-xl-9 col border-start p-3">
+              <div class="homepage-content-container">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </ng-template>
   `,
   styles: [
@@ -60,7 +81,8 @@ export class LayoutComponent implements OnInit {
   private destroy$ = new Subject<void>();
   hashtags$ = this.postService.hastags$.asObservable();
 
-  visible = true;
+  isCalendarView = false;
+  isregl = false;
 
   constructor(private postService: PostService, private router: Router) {
     this.router.events
@@ -69,10 +91,16 @@ export class LayoutComponent implements OnInit {
         filter((event) => event instanceof NavigationEnd)
       )
       .subscribe((event: any) => {
-        if ((event?.url as string).includes('calendar')) {
-          console.log('gg');
-          this.visible = false;
-        } else this.visible = true;
+        const url = event?.url as string;
+        if (url.includes('calendar')) {
+          this.isCalendarView = true;
+          if (url.includes('menstrual')) this.isregl = true;
+          else this.isregl = false;
+          console.log(this.isregl);
+        } else {
+          this.isregl = false;
+          this.isCalendarView = false;
+        }
       });
   }
 

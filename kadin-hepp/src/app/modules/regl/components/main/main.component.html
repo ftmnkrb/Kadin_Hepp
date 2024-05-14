@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 py-3">
+      <button class="btn btn-primary text-white" (click)="reglSec()">
+        Regl Gir
+      </button>
+    </div>
+    <hr />
+    <div class="col-9 border-end">
+      <app-calendar [data]="(regl$ | async) || undefined"></app-calendar>
+    </div>
+    <div class="col-3">side</div>
+  </div>
+</div>

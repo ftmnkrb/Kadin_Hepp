@@ -1,0 +1,23 @@
+<div>
+  <ng-container *ngIf="!data && !(loadingService.loading$ | async)">
+    <div class="alert bg-info text-bold">Henüz bir regl girmediniz.</div>
+    <hr />
+  </ng-container>
+  <div *ngIf="events; else noEvents">
+    <full-calendar [options]="calendarOptions">
+      <!-- <ng-template #eventContent let-arg>
+        <b>{{ arg.event.title }}</b>
+      </ng-template> -->
+    </full-calendar>
+  </div>
+</div>
+
+<ng-template #noEvents>
+  <div>
+    <full-calendar [options]="baseCalendarOptions">
+      <!-- <ng-template #eventContent let-arg>
+        <b>{{ arg.event.title }}</b>
+      </ng-template> -->
+    </full-calendar>
+  </div>
+</ng-template>

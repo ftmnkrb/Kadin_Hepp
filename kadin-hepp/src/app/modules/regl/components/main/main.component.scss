@@ -1,0 +1,19 @@
+@import "/src/styles/colors.scss";
+
+::ng-deep {
+  .p-dialog-content {
+    overflow: visible !important;
+  }
+
+  .fc-daygrid-day {
+    .event-text-cf {
+      align-content: center;
+      .fc-event-title {
+        color: #000 !important;
+        text-align: center;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+    }
+  }
+}
