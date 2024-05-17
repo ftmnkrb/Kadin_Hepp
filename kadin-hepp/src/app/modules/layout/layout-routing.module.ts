@@ -24,6 +24,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../regl/regl.module').then((m) => m.ReglModule),
       },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('../profile/profile.module').then((m) => m.ProfileModule),
+      },
     ],
   },
 ];

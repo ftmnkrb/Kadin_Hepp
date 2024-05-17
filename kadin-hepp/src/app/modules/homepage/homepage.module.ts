@@ -34,15 +34,15 @@ const PRIMENG = [
   declarations: [
     CreatePostComponent,
     HomepageComponent,
-    PostCardComponent,
     HighlightHashtagDirective,
-    PostCardActionsComponent,
   ],
   imports: [
     CommonModule,
     HomepageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PostCardComponent,
+    PostCardActionsComponent,
     ...PRIMENG,
   ],
   providers: [

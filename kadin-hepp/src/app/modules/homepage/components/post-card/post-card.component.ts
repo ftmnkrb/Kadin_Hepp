@@ -15,8 +15,12 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { PostCardActionsComponent } from './post-card-actions/post-card-actions.component';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, PostCardActionsComponent],
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],

@@ -28,6 +28,21 @@ export class PostService {
     );
   }
 
+  getActiveUserPosts(userId: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
+      map((res) => {
+        let posts: Post[] = convertFirebaseResponse<typeof res, Post>(res);
+
+        return posts
+          .filter((p) => p.createdUser._id == userId)
+          .sort((a, b) => b.createTime - a.createTime);
+      }),
+      tap((res) => {
+        this.allPosts$.next(res);
+      })
+    );
+  }
+
   createPost(body: Post): Observable<Post> {
     return this.http
       .post<{ name: string }>(`${environment.firebaseUrl}/posts.json`, body)
