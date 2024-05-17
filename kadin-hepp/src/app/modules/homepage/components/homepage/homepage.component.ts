@@ -16,4 +16,8 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getAllPosts().pipe(take(1)).subscribe();
   }
+
+  clearSearch() {
+    this.postService.search('reset');
+  }
 }

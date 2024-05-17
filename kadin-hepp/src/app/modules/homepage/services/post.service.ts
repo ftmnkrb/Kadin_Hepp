@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
-import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, exhaustMap, map, take, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
 
@@ -12,6 +12,8 @@ import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
 export class PostService {
   allPosts$ = new BehaviorSubject<Post[]>([]);
   hastags$ = new BehaviorSubject<string[]>([]);
+
+  isCleared = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
@@ -181,5 +183,19 @@ export class PostService {
         this.hastags$.next(hashtags);
       })
     );
+  }
+
+  search(text: string) {
+    if (text == 'reset') {
+      this.getAllPosts().pipe(take(1)).subscribe();
+      this.isCleared.next(true);
+      return;
+    }
+    const temp = this.allPosts$.getValue();
+    const filteredPosts = temp.filter(
+      (p) => p.content.includes(text) || p.createdUser.name.includes(text)
+    );
+    this.allPosts$.next(filteredPosts);
+    this.isCleared.next(false);
   }
 }

@@ -7,15 +7,16 @@ import { LocationComponent } from 'src/app/shared/components/location/location.c
 import { LayoutComponent } from './layout.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SidenavComponent } from 'src/app/shared/components/sidenav/sidenav.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     NavbarComponent,
     LocationComponent,
-    SidenavComponent
+    SidenavComponent,
   ],
-  imports: [CommonModule, LayoutRoutingModule],
+  imports: [CommonModule, LayoutRoutingModule, FormsModule],
   providers: [DialogService],
 })
 export class LayoutModule {}

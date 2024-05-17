@@ -19,6 +19,8 @@
           class="form-control"
           type="text"
           placeholder="Search"
+          [(ngModel)]="searchText"
+          (ngModelChange)="searchTextChange()"
           (keyup.enter)="search($event)"
         />
       </div>
