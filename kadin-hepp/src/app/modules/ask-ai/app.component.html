@@ -1,0 +1,58 @@
+<div *ngIf="chatForm.value.bot" class="card text-center rounded">
+  <div class="card-header fw-bold fs-5">KADINHEPP YAPAY ZEKASI</div>
+  <div class="card-body px-0">
+    <div #messagesContainer class="messages">
+      <h6 *ngIf="messagesHistory.length < 1" class="welcome-message">
+        Selam 😊 Bugün sana nasıl yardımcı olabilirim?
+      </h6>
+      <div
+        *ngFor="let message of messagesHistory"
+        [@typeWritterEffect]
+        class="messages-content"
+      >
+        <span
+          [ngClass]="{
+            gemini: message.role === 'model',
+            user: message.role === 'user'
+          }"
+        >
+          <i
+            class="fa"
+            [ngClass]="{
+              'fa-commenting-o': message.role === 'model',
+              'fa-user-circle-o': message.role === 'user'
+            }"
+            aria-hidden="true"
+          ></i>
+          &nbsp;
+          {{ message.role === "model" ? "AI" : "User" }}:&nbsp;
+        </span>
+        <span
+          class="text"
+          [innerHTML]="message.parts | convertTextToHtml"
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-body-secondary">
+    <div class="mb-3">
+      <textarea
+        class="form-control"
+        rows="1"
+        [(ngModel)]="userMessage"
+        (keydown.enter)="sendMessage(userMessage!); userMessage = null"
+        (keyup)="autoGrowTextZone($event)"
+        type="text"
+        placeholder="Kadınsal bir şey sor.."
+      ></textarea>
+      <button
+        (click)="sendMessage(userMessage!); userMessage = null"
+        [disabled]="!userMessage || loading"
+        type="button"
+        class="btn btn-primary text-white fw-semibold mt-1 w-100"
+      >
+        Gönder
+      </button>
+    </div>
+  </div>
+</div>

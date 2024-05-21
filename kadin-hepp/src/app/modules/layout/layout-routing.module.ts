@@ -29,6 +29,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../profile/profile.module').then((m) => m.ProfileModule),
       },
+      {
+        path: 'ask-ai',
+        loadChildren: () =>
+          import('../ask-ai/ask-ai.module').then((m) => m.AskAiModule),
+      },
     ],
   },
 ];

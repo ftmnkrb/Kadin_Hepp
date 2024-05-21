@@ -35,9 +35,11 @@ export class LayoutComponent implements OnInit {
       )
       .subscribe((event: any) => {
         const url = event?.url as string;
-        if (url.includes('calendar')) {
+        if (url.includes('calendar') || url.includes('ai')) {
           this.isCalendarView = true;
-          if (url.includes('menstrual')) this.isregl = true;
+          console.log(url.includes('ai'));
+          if (url.includes('menstrual') || url.includes('ai'))
+            this.isregl = true;
           else this.isregl = false;
           console.log(this.isregl);
         } else {
