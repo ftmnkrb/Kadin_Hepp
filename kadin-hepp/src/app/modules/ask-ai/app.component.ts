@@ -47,24 +47,8 @@ export class AppComponent {
   public userMessage!: string | null;
   public loading = false;
 
-  public characterSelection = [
-    {
-      id: 0,
-      value: 'Behram',
-    },
-    {
-      id: 1,
-      value: 'Gemini',
-    },
-  ];
-
-  temperatureOptions = [
-    { value: 0.2, label: 'Low Creativity' },
-    { value: 0.5, label: 'Moderate Creativity' },
-    { value: 0.9, label: 'High Creativity' },
-  ];
-
   modelOptions = [
+    { label: '', value: 'gemini-pro' },
     { label: 'Gemini v1.0.0-Pro (Basic)', value: 'gemini-1.0-pro' },
     { label: 'Gemini v1.0.0-Pro-001 (Updated)', value: 'gemini-1.0-pro-001' },
     {
@@ -76,8 +60,6 @@ export class AppComponent {
 
   chatForm = new FormGroup({
     apiKey: new FormControl(API_KEY_CONF || ''),
-    temperature: new FormControl(this.temperatureOptions[2].value),
-    bot: new FormControl(this.characterSelection[0]),
     model: new FormControl(this.modelOptions[0].value),
   });
 
