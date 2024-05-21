@@ -13,9 +13,9 @@ export class NavbarComponent implements OnInit {
   searchText: string = '';
 
   ngOnInit(): void {
-    this.postService.isCleared.subscribe({
+    this.postService.searchText.subscribe({
       next: (res) => {
-        if (res) this.searchText = '';
+        if (res) this.searchText = res;
       },
     });
   }
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   searchTextChange() {
     if (this.searchText.length == 0) {
-      this.postService.search('reset');
+      this.postService.search('');
     }
   }
 }

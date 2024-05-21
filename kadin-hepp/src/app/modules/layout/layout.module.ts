@@ -9,6 +9,13 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { SidenavComponent } from 'src/app/shared/components/sidenav/sidenav.component';
 import { FormsModule } from '@angular/forms';
 
+import { MenuModule } from 'primeng/menu';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { AccordionModule } from 'primeng/accordion';
+import { ButtonModule } from 'primeng/button';
+
+const PRIMENG = [MenuModule, PanelMenuModule, AccordionModule, ButtonModule];
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -16,7 +23,7 @@ import { FormsModule } from '@angular/forms';
     LocationComponent,
     SidenavComponent,
   ],
-  imports: [CommonModule, LayoutRoutingModule, FormsModule],
+  imports: [CommonModule, LayoutRoutingModule, FormsModule, ...PRIMENG],
   providers: [DialogService],
 })
 export class LayoutModule {}

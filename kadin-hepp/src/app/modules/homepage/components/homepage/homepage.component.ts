@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { Observable, map, take } from 'rxjs';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-homepage',
@@ -10,8 +11,12 @@ import { Observable, map, take } from 'rxjs';
 })
 export class HomepageComponent implements OnInit {
   allPosts$: Observable<Post[]> = this.postService.allPosts$.asObservable();
+  loading$ = this.loadingService.loading$;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.postService.getAllPosts().pipe(take(1)).subscribe();

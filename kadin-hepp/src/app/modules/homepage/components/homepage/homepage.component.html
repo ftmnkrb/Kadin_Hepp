@@ -6,10 +6,16 @@
     styleClass="mb-3"
   ></app-post-card>
 
-  <ng-container *ngIf="!(allPosts$ | async)?.length">
-    <div class="alert alert-warning d-flex align-items-center" role="alert">
-      <h6 class="m-0">Gönderi Bulunamadı..</h6>
-      <button class="btn btn-sm btn-dark ms-2" (click)="clearSearch()">Aramayı Temizle</button>
-    </div>
+  <ng-container *ngIf="!(loading$ | async); else loadingContainer">
+    <ng-container *ngIf="!(allPosts$ | async)?.length">
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <h6 class="m-0">Gönderi Bulunamadı..</h6>
+        <button class="btn btn-sm btn-dark ms-2" (click)="clearSearch()">
+          Filtreyi Temizle
+        </button>
+      </div>
+    </ng-container>
   </ng-container>
+
+  <ng-template #loadingContainer> </ng-template>
 </ng-container>

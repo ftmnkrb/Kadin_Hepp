@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Post } from '../models/post';
+import { Category, Post } from '../models/post';
 import { BehaviorSubject, Observable, exhaustMap, map, take, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
@@ -13,7 +13,8 @@ export class PostService {
   allPosts$ = new BehaviorSubject<Post[]>([]);
   hastags$ = new BehaviorSubject<string[]>([]);
 
-  isCleared = new BehaviorSubject<boolean>(false);
+  searchText = new BehaviorSubject<string>('');
+  selectedCategory = new BehaviorSubject<Category | null>(null);
 
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
@@ -186,16 +187,38 @@ export class PostService {
   }
 
   search(text: string) {
-    if (text == 'reset') {
-      this.getAllPosts().pipe(take(1)).subscribe();
-      this.isCleared.next(true);
-      return;
-    }
-    const temp = this.allPosts$.getValue();
-    const filteredPosts = temp.filter(
-      (p) => p.content.includes(text) || p.createdUser.name.includes(text)
-    );
-    this.allPosts$.next(filteredPosts);
-    this.isCleared.next(false);
+    const category = this.selectedCategory.getValue();
+    this.getAllPosts()
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (text == '') {
+          this.searchText.next('');
+        } else {
+        }
+
+        const filteredPosts = res
+          .filter(
+            (p) =>
+              p.content
+                .toLocaleLowerCase()
+                .includes(text.toLocaleLowerCase()) ||
+              p.createdUser.name
+                .toLocaleLowerCase()
+                .includes(text.toLocaleLowerCase())
+          )
+          .filter((p) => {
+            if (category) {
+              return p.category?.code == category.code;
+            }
+            return p;
+          });
+        this.allPosts$.next(filteredPosts);
+        this.searchText.next(text);
+      });
+  }
+
+  selectCategory(category: Category | null) {
+    this.selectedCategory.next(category);
+    this.search(this.searchText.getValue());
   }
 }

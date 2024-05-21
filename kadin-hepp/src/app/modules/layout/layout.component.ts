@@ -8,74 +8,13 @@ import {
   Router,
   RouterEvent,
 } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Categories, Category } from '../homepage/models/post';
 
 @Component({
   selector: 'app-layout',
-  template: `
-    <ng-container *ngIf="!isCalendarView; else hideForCalendar">
-      <app-navbar></app-navbar>
-
-      <div class="homepage-main-container">
-        <div class="container-xxl">
-          <div class="row my-0">
-            <div class="col-xl-3 col-auto sticky" style="min-height: 100vh">
-              <app-sidenav></app-sidenav>
-            </div>
-            <div class="col-xl-6 col border-end border-start p-3">
-              <div class="homepage-content-container">
-                <router-outlet></router-outlet>
-              </div>
-            </div>
-            <div class="col-xl-3 col-2 d-md-block d-none sticky">
-              <span
-                *ngFor="let hashtag of hashtags$ | async"
-                class="badge bg-primary m-1"
-                >{{ hashtag }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-template #hideForCalendar>
-      <ng-container *ngIf="!isregl; else hideForRegl">
-        <router-outlet></router-outlet>
-      </ng-container>
-    </ng-template>
-
-    <ng-template #hideForRegl>
-      <app-navbar></app-navbar>
-
-      <div class="homepage-main-container">
-        <div class="container-xxl">
-          <div class="row my-0">
-            <div class="col-xl-3 col-auto sticky" style="min-height: 100vh">
-              <app-sidenav></app-sidenav>
-            </div>
-            <div class="col-xl-9 col border-start p-3">
-              <div class="homepage-content-container">
-                <router-outlet></router-outlet>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  `,
-  styles: [
-    `
-      .homepage-main-container {
-        padding-top: 5.5rem;
-      }
-
-      .sticky {
-        align-self: flex-start;
-        position: sticky !important;
-        top: 5.5rem;
-      }
-    `,
-  ],
+  templateUrl: `./layout.component.html`,
+  styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
   private destroy$ = new Subject<void>();
@@ -83,6 +22,10 @@ export class LayoutComponent implements OnInit {
 
   isCalendarView = false;
   isregl = false;
+
+  selectedCategory$ = this.postService.selectedCategory.asObservable();
+
+  items = Categories;
 
   constructor(private postService: PostService, private router: Router) {
     this.router.events
@@ -104,11 +47,17 @@ export class LayoutComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    this.postService.getHashtags().pipe(take(1)).subscribe();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.destroy$.next();
+  }
+
+  selectItem(category: Category) {
+    const v =
+      this.postService.selectedCategory.getValue() == category
+        ? null
+        : category;
+    this.postService.selectCategory(v);
   }
 }

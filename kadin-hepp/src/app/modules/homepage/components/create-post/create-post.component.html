@@ -77,14 +77,22 @@
             autocomplete="off"
         /></ng-container>
       </div>
-      <button type="button" class="btn"><i class="bi bi-geo-alt"></i></button>
+      <p-cascadeSelect
+        placeholder="Kategori Seç"
+        [(ngModel)]="selectedCategory"
+        [options]="categories"
+        optionLabel="cname"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['subCategories']"
+        styleClass="ms-2"
+      ></p-cascadeSelect>
     </div>
     <button
-      [disabled]="postForm.invalid"
+      [disabled]="postForm.invalid || !selectedCategory"
       type="submit"
       class="btn btn-primary text-white"
     >
-      {{ updateMode ? "Edit" : "Create" }}
+      {{ updateMode ? "Güncelle" : "Paylaş" }}
     </button>
   </div>
 </ng-template>

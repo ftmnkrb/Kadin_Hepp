@@ -23,6 +23,11 @@
     <p class="card-text" highlightHashtag>
       {{ post.content }}
     </p>
+    <div *ngIf="post.category?.cname">
+      <span class="badge text-bg-primary text-white">
+        {{ post.category.cname }}
+      </span>
+    </div>
 
     <div *ngIf="post.images?.length" class="row post-images">
       <div *ngFor="let img of post.images" class="col">
