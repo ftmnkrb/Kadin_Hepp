@@ -1,6 +1,48 @@
-.messages{
-    height: 500px;
-    max-height: 500px;
-    overflow: auto;
-    width: 100%;
+@import "/src/styles/colors.scss";
+
+:host {
+  ::ng-deep {
+    p {
+      margin: 0 !important;
+    }
+  }
+}
+
+.messages {
+  height: 500px;
+  max-height: 500px;
+  overflow: auto;
+  width: 100%;
+}
+
+div.model-message,
+div.welcome-message {
+  text-align: left;
+  margin-bottom: 0.75rem;
+}
+
+div.user-message {
+  text-align: right;
+  margin-bottom: 0.75rem;
+}
+
+span.model-message,
+span.welcome-message {
+  display: inline-block;
+  background-color: rgba($color: $dark, $alpha: 0.85);
+  color: #fff;
+  align-items: center;
+  border-radius: 0 24px 24px 36px;
+  padding: 0.75rem 1.25rem;
+  margin-left: 0.5rem;
+}
+
+span.user-message {
+  display: inline-block;
+  background-color: rgba($color: $primary, $alpha: 0.85);
+  color: #fff;
+  align-items: center;
+  border-radius: 24px 0 36px 24px;
+  padding: 0.75rem 1.25rem;
+  margin-right: 0.5rem;
 }

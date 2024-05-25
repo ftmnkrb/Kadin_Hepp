@@ -10,9 +10,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
+import { ReglSidebarComponent } from './components/regl-sidebar/regl-sidebar.component';
 
 @NgModule({
-  declarations: [MainComponent, CalendarComponent, ReglSecComponent],
+  declarations: [MainComponent, CalendarComponent, ReglSecComponent, ReglSidebarComponent],
   imports: [
     CommonModule,
     ReglRoutingModule,

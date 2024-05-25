@@ -4,20 +4,12 @@
     <hr />
   </ng-container>
   <div *ngIf="events; else noEvents">
-    <full-calendar [options]="calendarOptions">
-      <!-- <ng-template #eventContent let-arg>
-        <b>{{ arg.event.title }}</b>
-      </ng-template> -->
-    </full-calendar>
+    <full-calendar [options]="calendarOptions"> </full-calendar>
   </div>
 </div>
 
 <ng-template #noEvents>
   <div>
-    <full-calendar [options]="baseCalendarOptions">
-      <!-- <ng-template #eventContent let-arg>
-        <b>{{ arg.event.title }}</b>
-      </ng-template> -->
-    </full-calendar>
+    <full-calendar [options]="baseCalendarOptions"> </full-calendar>
   </div>
 </ng-template>

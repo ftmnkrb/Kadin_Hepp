@@ -11,13 +11,14 @@ import { CalendarOptions, EventSourceInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { ReglModel } from '../../models/regl';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import trLocale from '@fullcalendar/core/locales/tr'; // Türkçe yerelleştirme
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit, OnChanges, OnDestroy {
+export class CalendarComponent implements OnInit, OnChanges {
   @Input() data: ReglModel | undefined;
   events: EventSourceInput | undefined;
 
@@ -35,18 +36,15 @@ export class CalendarComponent implements OnInit, OnChanges, OnDestroy {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    locale: trLocale, // Türkçe yerelleştirme ekleniyor
     plugins: [dayGridPlugin],
     events: [],
   };
 
   baseCalendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    locale: trLocale, // Türkçe yerelleştirme ekleniyor
     plugins: [dayGridPlugin],
     events: [],
   };
-
-  ngOnDestroy(): void {
-    // throw new Error('Method not implemented.');
-    console.log('ekrem');
-  }
 }

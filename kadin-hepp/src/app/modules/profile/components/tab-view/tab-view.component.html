@@ -1,11 +1,11 @@
 <div [ngClass]="styleClass">
   <p-tabView>
-    <p-tabPanel header="Posts">
+    <p-tabPanel header="Gönderiler">
       <ng-container *ngFor="let item of myPosts$ | async">
         <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
       </ng-container>
     </p-tabPanel>
-    <p-tabPanel header="Likes">
+    <p-tabPanel header="Beğenilenler">
       <ng-container *ngFor="let item of likedPosts$ | async">
         <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
       </ng-container>

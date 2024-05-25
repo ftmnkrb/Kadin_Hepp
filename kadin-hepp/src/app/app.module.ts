@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
@@ -20,8 +20,12 @@ import { SelectLocationComponent } from './shared/components/select-location/sel
 import { FormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
+import localeTr from '@angular/common/locales/tr';
+import { registerLocaleData } from '@angular/common';
 
 const PRIMENG = [BlockUIModule, ToastModule, DropdownModule];
+
+registerLocaleData(localeTr);
 
 @NgModule({
   declarations: [
@@ -48,6 +52,7 @@ const PRIMENG = [BlockUIModule, ToastModule, DropdownModule];
       useClass: LoadingInterceptor,
       multi: true,
     },
+    { provide: LOCALE_ID, useValue: 'tr-TR' }, // Uygulamanın varsayılan dilini Türkçe olarak ayarlayın
     { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket },
   ],
   bootstrap: [AppComponent],
