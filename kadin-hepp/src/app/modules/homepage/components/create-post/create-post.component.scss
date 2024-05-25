@@ -1,5 +1,15 @@
 @import "src/styles/colors.scss";
 
+:host {
+  ::ng-deep {
+    p-cascadeSelect {
+      .p-cascadeselect-label.p-inputtext.p-placeholder {
+        padding: 0.25rem 0.75rem;
+      }
+    }
+  }
+}
+
 .create-post-container {
   padding-bottom: 1rem;
 

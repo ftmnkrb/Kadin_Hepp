@@ -33,9 +33,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.signIn(loginModel).subscribe(
       (res) => {},
-      (err) => {
-        alert(err.error.error);
-      }
+      (err) => {}
     );
   }
 }

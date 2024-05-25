@@ -1,0 +1,33 @@
+<div *ngIf="data">
+  <div
+    *ngIf="isRegl"
+    class="alert alert-dark fw-semibold text-center"
+    role="alert"
+  >
+    Regl Dönemindesiniz
+  </div>
+  <div
+    *ngIf="daysUntilNextRegl !== -1 && !isRegl"
+    class="alert alert-info text-center fw-semibold"
+    role="alert"
+  >
+    Regle kalan gün :
+    <br />
+    <span class="badge text-bg-primary text-white fs-5 mt-2">{{ daysUntilNextRegl }}</span>
+  </div>
+  <hr />
+  <div *ngIf="isYumurtlama" class="alert alert-danger text-center fw-semibold" role="alert">
+    Hamile Kalma Olasılığı
+    <br />
+    <span class="fw-bold fs-5"> Yüksek </span>
+  </div>
+  <div
+    *ngIf="!isYumurtlama"
+    class="alert alert-success text-center"
+    role="alert"
+  >
+    Hamile Kalma Olasılığı
+    <br />
+    <span class="fw-bold fs-5"> Düşük </span>
+  </div>
+</div>

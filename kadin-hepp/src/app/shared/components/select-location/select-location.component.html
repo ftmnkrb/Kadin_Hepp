@@ -1,5 +1,5 @@
 <div class="p-3">
-  <h3 class="text-center text-primary">Select Location</h3>
+  <h3 class="text-center text-primary">Konum Seçin</h3>
   <hr />
 
   <p-dropdown
@@ -7,7 +7,7 @@
     [(ngModel)]="selectedCity"
     optionLabel="name"
     styleClass="w-100 mb-2"
-    placeholder="City"
+    placeholder="Şehir"
   ></p-dropdown>
 
   <p-dropdown
@@ -17,7 +17,7 @@
     (ngModelChange)="getNeighborhoods()"
     optionLabel="name"
     styleClass="w-100 mb-2"
-    placeholder="District"
+    placeholder="İlçe"
     [showClear]="true"
   ></p-dropdown>
 
@@ -27,7 +27,7 @@
     [(ngModel)]="selectedHood"
     optionLabel="name"
     styleClass="w-100 mb-2"
-    placeholder="Neighbourhood"
+    placeholder="Mahalle"
     [showClear]="true"
   ></p-dropdown>
 
@@ -36,6 +36,6 @@
     class="btn btn-primary text-white mt-4 w-100"
     [disabled]="!selectedCity"
   >
-    Save
+    Kaydet
   </button>
 </div>

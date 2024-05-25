@@ -9,7 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { PostService } from '../../services/post.service';
-import { Post } from '../../models/post';
+import { Categories, Category, Post } from '../../models/post';
 import { take } from 'rxjs';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
@@ -38,6 +38,10 @@ export class CreatePostComponent implements OnInit {
   images: string[] = [];
   downloadURL!: Observable<string>;
 
+  categories = Categories;
+
+  selectedCategory: Category | null = null;
+
   constructor(
     private authService: AuthService,
     private postService: PostService,
@@ -52,6 +56,7 @@ export class CreatePostComponent implements OnInit {
       const post: Post = this.config.data.post;
       this.updateMode = true;
       this.postForm.patchValue(post);
+      this.selectedCategory = post.category;
       if (post.images) this.images = post.images;
     }
   }
@@ -62,7 +67,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   submit() {
-    if (this.postForm.invalid) return;
+    if (this.postForm.invalid || !this.selectedCategory) return;
 
     if (this.updateMode) this.updatePost();
     else this.createPost();
@@ -76,6 +81,7 @@ export class CreatePostComponent implements OnInit {
       commentCount: 0,
       createTime: new Date().getTime(),
       images: this.images.length ? this.images : [],
+      category: this.selectedCategory!,
     };
 
     this.postService
@@ -85,6 +91,7 @@ export class CreatePostComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.postForm.reset();
+          this.selectedCategory = null;
           this.images = [];
         },
         error: (err) => {

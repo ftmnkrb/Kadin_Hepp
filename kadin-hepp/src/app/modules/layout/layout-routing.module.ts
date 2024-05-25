@@ -19,6 +19,21 @@ const routes: Routes = [
             (m) => m.AyTakvimiModule
           ),
       },
+      {
+        path: 'menstrual-calendar',
+        loadChildren: () =>
+          import('../regl/regl.module').then((m) => m.ReglModule),
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('../profile/profile.module').then((m) => m.ProfileModule),
+      },
+      {
+        path: 'ask-ai',
+        loadChildren: () =>
+          import('../ask-ai/ask-ai.module').then((m) => m.AskAiModule),
+      },
     ],
   },
 ];

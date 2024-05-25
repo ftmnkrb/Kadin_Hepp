@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Post } from '../models/post';
-import { BehaviorSubject, Observable, exhaustMap, map, tap } from 'rxjs';
+import { Category, Post } from '../models/post';
+import { BehaviorSubject, Observable, exhaustMap, map, take, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
 
@@ -13,6 +13,9 @@ export class PostService {
   allPosts$ = new BehaviorSubject<Post[]>([]);
   hastags$ = new BehaviorSubject<string[]>([]);
 
+  searchText = new BehaviorSubject<string>('');
+  selectedCategory = new BehaviorSubject<Category | null>(null);
+
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
   getAllPosts(): Observable<Post[]> {
@@ -21,6 +24,21 @@ export class PostService {
         let posts: Post[] = convertFirebaseResponse<typeof res, Post>(res);
 
         return posts.sort((a, b) => b.createTime - a.createTime);
+      }),
+      tap((res) => {
+        this.allPosts$.next(res);
+      })
+    );
+  }
+
+  getActiveUserPosts(userId: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
+      map((res) => {
+        let posts: Post[] = convertFirebaseResponse<typeof res, Post>(res);
+
+        return posts
+          .filter((p) => p.createdUser._id == userId)
+          .sort((a, b) => b.createTime - a.createTime);
       }),
       tap((res) => {
         this.allPosts$.next(res);
@@ -166,5 +184,41 @@ export class PostService {
         this.hastags$.next(hashtags);
       })
     );
+  }
+
+  search(text: string) {
+    const category = this.selectedCategory.getValue();
+    this.getAllPosts()
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (text == '') {
+          this.searchText.next('');
+        } else {
+        }
+
+        const filteredPosts = res
+          .filter(
+            (p) =>
+              p.content
+                .toLocaleLowerCase()
+                .includes(text.toLocaleLowerCase()) ||
+              p.createdUser.name
+                .toLocaleLowerCase()
+                .includes(text.toLocaleLowerCase())
+          )
+          .filter((p) => {
+            if (category) {
+              return p.category?.code == category.code;
+            }
+            return p;
+          });
+        this.allPosts$.next(filteredPosts);
+        this.searchText.next(text);
+      });
+  }
+
+  selectCategory(category: Category | null) {
+    this.selectedCategory.next(category);
+    this.search(this.searchText.getValue());
   }
 }

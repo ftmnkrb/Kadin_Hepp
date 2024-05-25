@@ -1,0 +1,40 @@
+@import "src/styles/colors.scss";
+
+:host {
+  ::ng-deep {
+    .p-accordion-content {
+      padding: 0;
+
+      button:not(:last-child) {
+        border-bottom: 1px solid $dark;
+        border-radius: 0;
+      }
+      button {
+        &:focus {
+          border-color: transparent;
+          border-bottom: 1px solid $dark;
+        }
+        &.active {
+          background-color: $primary !important;
+          color: #fff;
+          border-color: transparent;
+        }
+      }
+    }
+
+    .p-accordion
+      .p-accordion-header:not(.p-disabled)
+      .p-accordion-header-link:focus {
+      box-shadow: none;
+    }
+  }
+}
+.homepage-main-container {
+  padding-top: 5.5rem;
+}
+
+.sticky {
+  align-self: flex-start;
+  position: sticky !important;
+  top: 5.5rem;
+}

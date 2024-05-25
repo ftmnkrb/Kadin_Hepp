@@ -21,6 +21,7 @@ import {
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 const PRIMENG = [
   SplitButtonModule,
@@ -28,21 +29,22 @@ const PRIMENG = [
   ConfirmDialogModule,
   ConfirmPopupModule,
   DynamicDialogModule,
+  CascadeSelectModule,
 ];
 
 @NgModule({
   declarations: [
     CreatePostComponent,
     HomepageComponent,
-    PostCardComponent,
     HighlightHashtagDirective,
-    PostCardActionsComponent,
   ],
   imports: [
     CommonModule,
     HomepageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PostCardComponent,
+    PostCardActionsComponent,
     ...PRIMENG,
   ],
   providers: [

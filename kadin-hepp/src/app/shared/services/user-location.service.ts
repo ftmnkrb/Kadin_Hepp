@@ -19,9 +19,6 @@ export class UserLocationService {
       .get<any>('https://turkiyeapi.dev/api/v1/provinces?name=antalya')
       .pipe(
         exhaustMap((r) => {
-          console.log(r);
-          console.log(r.data[0]);
-          console.log(r.data[0].districts[2]);
           return this.http
             .post<{ name: string }>(
               `${environment.firebaseUrl}/userLocations.json`,
@@ -79,12 +76,10 @@ export class UserLocationService {
           let locations = convertFirebaseResponse<typeof res, UserLocation>(
             res
           );
-          console.log(locations);
 
           return locations.find((l) => l.userId == userId) || null;
         }),
         tap((l) => {
-          console.log(l);
           this.activeUserLocation$.next(l);
         })
       );

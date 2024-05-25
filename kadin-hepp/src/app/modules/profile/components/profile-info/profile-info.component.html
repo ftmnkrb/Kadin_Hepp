@@ -1,0 +1,28 @@
+<div class="card p-3 rounded shadow-lg" [ngClass]="styleClass">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img
+        class="img-fluid"
+        [src]="user?.photo"
+        alt=""
+        style="max-width: 150px"
+      />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title text-capitalize fw-bold fs-3">
+          {{ user?.name }}
+        </h5>
+        <p class="card-text">
+          <span>
+            <i class="bi bi-geo-alt-fill text-primary"></i>
+            {{ user?.location }}
+          </span>
+        </p>
+        <p class="card-text">
+          <small class="text-body-secondary">{{ user?.email }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

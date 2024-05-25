@@ -1,19 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginPayoad, LoginResponse, User, UserState } from '../models/user';
 import {
   BehaviorSubject,
   Observable,
-  exhaustMap,
-  switchMap,
+  catchError,
+  of,
   take,
   tap,
+  throwError,
 } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { jwtDecode } from 'jwt-decode';
 import { UserLocationService } from 'src/app/shared/services/user-location.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +26,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private uls: UserLocationService
+    private uls: UserLocationService,
+    private ts: ToastService
   ) {}
 
   signUp(user: User): Observable<any> {
@@ -43,6 +46,7 @@ export class AuthService {
       .post<LoginResponse>(`${environment.apiUrl}user/login`, payload)
       .pipe(
         tap((res) => {
+          console.log(res);
           this.userState.next(res);
           localStorage.setItem('activeUser', JSON.stringify(res));
           this.router.navigate(['/']);
@@ -61,6 +65,10 @@ export class AuthService {
                 }
               },
             });
+        }),
+        catchError((err) => {
+          this.ts.addSingle('error', 'Kullanıcı adı veya şifre hatalı.');
+          return throwError(() => err);
         })
       );
   }

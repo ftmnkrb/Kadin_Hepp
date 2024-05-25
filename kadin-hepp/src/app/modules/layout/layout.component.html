@@ -1,0 +1,64 @@
+<ng-container *ngIf="!isCalendarView; else hideForCalendar">
+  <app-navbar></app-navbar>
+
+  <div class="homepage-main-container">
+    <div class="container-xxl">
+      <div class="row my-0">
+        <div class="col-xl-3 col-auto sticky">
+          <app-sidenav></app-sidenav>
+        </div>
+        <div class="col-xl-6 col border-end border-start p-3">
+          <div class="homepage-content-container">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <div class="col-xl-3 col-2 d-md-block d-none sticky">
+          <h4 class="fw-bold text-center m-0 pt-2 text-primary">KATEGORİLER</h4>
+          <hr class="text-primary" />
+          <p-accordion>
+            <ng-container *ngFor="let item of items">
+              <p-accordionTab
+                [header]="item.name"
+                [selected]="(selectedCategory$ | async)?.baseCode == item.code"
+              >
+                <button
+                  *ngFor="let c of item.subCategories"
+                  class="w-100 btn py-3"
+                  [class.active]="(selectedCategory$ | async)?.code == c.code"
+                  (click)="selectItem(c)"
+                >
+                  {{ c.cname }}
+                </button>
+              </p-accordionTab>
+            </ng-container>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #hideForCalendar>
+  <ng-container *ngIf="!isregl; else hideForRegl">
+    <router-outlet></router-outlet>
+  </ng-container>
+</ng-template>
+
+<ng-template #hideForRegl>
+  <app-navbar></app-navbar>
+
+  <div class="homepage-main-container">
+    <div class="container-xxl">
+      <div class="row my-0">
+        <div class="col-xl-3 col-auto sticky" style="min-height: 100vh">
+          <app-sidenav></app-sidenav>
+        </div>
+        <div class="col-xl-9 col border-start p-3">
+          <div class="homepage-content-container">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
