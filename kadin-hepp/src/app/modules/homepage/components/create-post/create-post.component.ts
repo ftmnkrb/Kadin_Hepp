@@ -181,7 +181,7 @@ export class CreatePostComponent implements OnInit {
         width: '400px',
         data: {
           forPost: true,
-          l: this.config.data ? this.selectedLocation : null,
+          l: this.selectedLocation,
         },
       })
       .onClose.subscribe((r: PostLocation) => {
