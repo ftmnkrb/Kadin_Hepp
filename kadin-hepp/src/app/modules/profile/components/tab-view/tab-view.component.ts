@@ -38,12 +38,16 @@ export class TabViewComponent implements OnInit {
       //       posts.filter((p) => p.createdUser._id === this.user?._id)
       //     )
       //   );
-      this.myPosts$ = this.postService.allPosts$.pipe(
-        map((posts) =>
-          posts.filter((p) => p.createdUser._id === this.user?._id)
-        )
+      this.myPosts$ = this.postService.getPostsWithoutFiltering().pipe(
+        take(1),
+        map((posts) => {
+          console.log(posts);
+          return posts.filter((p) => p.createdUser._id === this.user?._id);
+        })
       );
-      this.likedPosts$ = this.postService.allPosts$.pipe(
+
+      this.likedPosts$ = this.postService.getPostsWithoutFiltering().pipe(
+        take(1),
         map((posts) =>
           posts.filter((p) => p.likedUsers?.includes(this.user?._id!))
         )

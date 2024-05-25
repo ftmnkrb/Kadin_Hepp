@@ -44,8 +44,8 @@ export class SelectLocationComponent implements OnInit {
       this.cities = res;
     });
 
-    const isForPost = this.ddconf?.data?.forPost;
-    if (!isForPost) {
+    const data = this.ddconf?.data;
+    if (!data.isForPost) {
       this.userLocation = this.uls.activeUserLocation$.getValue();
 
       this.selectedCity = this.userLocation?.location.city;
@@ -53,6 +53,9 @@ export class SelectLocationComponent implements OnInit {
       this.selectedHood = this.userLocation?.location.hood;
     } else {
       this.isForPost = true;
+      this.selectedCity = data.l.il;
+      this.selectedDistrict = data.l.ilce.value;
+      this.selectedHood = data.l.mahalle.value;
     }
 
     if (this.selectedDistrict) {

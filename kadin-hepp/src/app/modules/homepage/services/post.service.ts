@@ -36,6 +36,16 @@ export class PostService {
     );
   }
 
+  getPostsWithoutFiltering(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
+      map((res) => {
+        let posts: Post[] = convertFirebaseResponse<typeof res, Post>(res);
+
+        return posts.sort((a, b) => b.createTime - a.createTime);
+      })
+    );
+  }
+
   getActiveUserPosts(userId: string): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
       map((res) => {
@@ -59,7 +69,7 @@ export class PostService {
           return this.getPostById(res.name);
         }),
         tap((post) => {
-          this.allPosts$.next([post, ...this.allPosts$.getValue()]);
+          this.getAllPosts().pipe(take(1)).subscribe();
 
           this.toastService.addSingle(
             'success',
@@ -78,12 +88,7 @@ export class PostService {
         }),
         tap((post) => {
           this.toastService.addSingle('info', 'Gönderi Başarıyla Güncellendi');
-          this.allPosts$.next([
-            ...this.allPosts$.getValue().map((p) => {
-              if (p.id == post.id) return post;
-              else return p;
-            }),
-          ]);
+          this.getAllPosts().pipe(take(1)).subscribe();
         })
       );
   }
@@ -233,10 +238,7 @@ export class PostService {
       this.getAllPosts()
         .pipe(take(1))
         .subscribe((allPosts) => {
-          console.log(allPosts);
-          console.log(location);
           if (location?.location.hood) {
-            console.log('1');
             const v = allPosts.filter(
               (p) =>
                 p.location?.mahalle?.value?.name ==
@@ -244,22 +246,18 @@ export class PostService {
             );
             this.allPosts$.next(v);
           } else if (location?.location.district) {
-            console.log('2');
             const v = allPosts.filter(
               (p) =>
                 p.location?.ilce?.value?.name ==
                 location.location?.district?.name
             );
-            console.log(v);
             this.allPosts$.next(v);
           } else if (location?.location.city) {
-            console.log('3');
             const v = allPosts.filter(
               (p) => p.location?.il?.name == location.location?.city?.name
             );
             this.allPosts$.next(v);
           } else {
-            console.log('4');
             this.allPosts$.next(allPosts);
           }
         });
@@ -269,21 +267,17 @@ export class PostService {
   filterByLocation(posts: Post[]): Post[] {
     const location = this.uls.activeUserLocation$.getValue();
     if (location?.location.hood) {
-      console.log('1');
       const v = posts.filter(
         (p) => p.location?.mahalle?.value?.name == location.location?.hood?.name
       );
       return v;
     } else if (location?.location.district) {
-      console.log('2');
       const v = posts.filter(
         (p) =>
           p.location?.ilce?.value?.name == location.location?.district?.name
       );
       return v;
-      console.log(v);
     } else if (location?.location.city) {
-      console.log('3');
       const v = posts.filter(
         (p) => p.location?.il?.name == location.location?.city?.name
       );

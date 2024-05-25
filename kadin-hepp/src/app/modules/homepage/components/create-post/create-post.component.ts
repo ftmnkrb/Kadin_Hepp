@@ -64,6 +64,7 @@ export class CreatePostComponent implements OnInit {
       this.updateMode = true;
       this.postForm.patchValue(post);
       this.selectedCategory = post.category;
+      this.selectedLocation = post.location;
       if (post.images) this.images = post.images;
     }
   }
@@ -180,6 +181,7 @@ export class CreatePostComponent implements OnInit {
         width: '400px',
         data: {
           forPost: true,
+          l: this.config.data ? this.selectedLocation : null,
         },
       })
       .onClose.subscribe((r: PostLocation) => {

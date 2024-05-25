@@ -21,8 +21,20 @@ export class HomepageComponent implements OnInit {
     this.postService.syncFilterByLocation();
   }
 
+  postL = false;
+
   ngOnInit(): void {
     this.postService.getAllPosts().pipe(take(1)).subscribe();
+
+    this.postService
+      .getPostsWithoutFiltering()
+      .pipe(
+        take(1),
+        map((posts) => !!posts.length)
+      )
+      .subscribe((r) => {
+        this.postL = r;
+      });
   }
 
   clearSearch() {
