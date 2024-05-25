@@ -1,4 +1,4 @@
-<div *ngIf="post" [ngClass]="styleClass" class="card p-3 shadow-md">
+<div *ngIf="post" [ngClass]="styleClass" class="card p-3 shadow-sm">
   <div class="card-top">
     <div class="card-profile">
       <img class="img-fluid" [src]="post.createdUser.photo" alt="" />
@@ -23,11 +23,6 @@
     <p class="card-text" highlightHashtag>
       {{ post.content }}
     </p>
-    <div *ngIf="post.category?.cname">
-      <span class="badge text-bg-primary text-white">
-        {{ post.category.cname }}
-      </span>
-    </div>
 
     <div *ngIf="post.images?.length" class="row post-images">
       <div *ngFor="let img of post.images" class="col">
@@ -36,17 +31,22 @@
     </div>
   </div>
 
-  <div class="post-card-footer d-flex justify-content-between py-1">
-    <div class="post-card-container">
+  <div class="post-card-footer d-flex justify-content-between py-1 border-top pt-2">
+    <!-- <div class="post-card-container">
       <i class="bi bi-chat"></i>
       <span>{{ post.commentCount }}</span>
     </div>
-    <div class="post-card-container"><i class="bi bi-share"></i></div>
+    <div class="post-card-container"><i class="bi bi-share"></i></div> -->
+    <div *ngIf="post.category?.cname">
+      <span class="badge text-bg-primary text-white p-2">
+        {{ post.category.cname }}
+      </span>
+    </div>
     <div class="post-card-container">
       <i
         [ngClass]="isLikedByUser() ? 'bi-heart-fill' : 'bi-suit-heart'"
         (click)="like(post.id)"
-        class="bi"
+        class="bi fs-5"
       ></i>
       <span>{{ post.likedUsers?.length || 0 }}</span>
     </div>

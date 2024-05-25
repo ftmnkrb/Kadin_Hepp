@@ -32,7 +32,9 @@ export class PostCardActionsComponent implements OnInit {
     this.confirmationService.confirm({
       icon: 'bi bi-exclamation-triangle-fill',
       target: event.target!,
-      message: 'Are you sure that you want to proceed?',
+      message: 'Silmek istediğinize emin misiniz?',
+      acceptLabel: 'Evet',
+      rejectLabel: 'Hayır',
       accept: () => {
         this.postService.deletePost(this.post.id!).pipe(take(1)).subscribe();
       },
@@ -41,7 +43,7 @@ export class PostCardActionsComponent implements OnInit {
 
   editPost() {
     const ref = this.dialogService.open(CreatePostComponent, {
-      header: 'Edit Post',
+      header: 'Gönderi Düzenle',
       draggable: true,
       data: {
         post: this.post,

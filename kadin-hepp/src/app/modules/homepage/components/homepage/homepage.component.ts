@@ -23,6 +23,6 @@ export class HomepageComponent implements OnInit {
   }
 
   clearSearch() {
-    this.postService.search('reset');
+    this.postService.resetFilters();
   }
 }

@@ -191,11 +191,6 @@ export class PostService {
     this.getAllPosts()
       .pipe(take(1))
       .subscribe((res) => {
-        if (text == '') {
-          this.searchText.next('');
-        } else {
-        }
-
         const filteredPosts = res
           .filter(
             (p) =>
@@ -215,6 +210,12 @@ export class PostService {
         this.allPosts$.next(filteredPosts);
         this.searchText.next(text);
       });
+  }
+
+  resetFilters() {
+    this.searchText.next('');
+    this.selectedCategory.next(null);
+    this.getAllPosts().pipe(take(1)).subscribe();
   }
 
   selectCategory(category: Category | null) {

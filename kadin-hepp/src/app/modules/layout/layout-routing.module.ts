@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { AboutUsComponent } from '../auth/components/about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
           import('../ask-ai/ask-ai.module').then((m) => m.AskAiModule),
       },
     ],
+  },
+  {
+    path: 'hakkimizda',
+    component: AboutUsComponent,
   },
 ];
 
