@@ -9,13 +9,18 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { PostService } from '../../services/post.service';
-import { Categories, Category, Post } from '../../models/post';
+import { Categories, Category, Post, PostLocation } from '../../models/post';
 import { take } from 'rxjs';
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import {
+  DynamicDialogRef,
+  DynamicDialogConfig,
+  DialogService,
+} from 'primeng/dynamicdialog';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, finalize } from 'rxjs';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SelectLocationComponent } from 'src/app/shared/components/select-location/select-location.component';
 
 // TODO => şuan submit edilmese de fotoğraflar database'de kalıyor.
 
@@ -41,6 +46,7 @@ export class CreatePostComponent implements OnInit {
   categories = Categories;
 
   selectedCategory: Category | null = null;
+  selectedLocation: PostLocation | null = null;
 
   constructor(
     private authService: AuthService,
@@ -48,7 +54,8 @@ export class CreatePostComponent implements OnInit {
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private storage: AngularFireStorage,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -82,6 +89,7 @@ export class CreatePostComponent implements OnInit {
       createTime: new Date().getTime(),
       images: this.images.length ? this.images : [],
       category: this.selectedCategory!,
+      location: this.selectedLocation!,
     };
 
     this.postService
@@ -92,6 +100,7 @@ export class CreatePostComponent implements OnInit {
           console.log(res);
           this.postForm.reset();
           this.selectedCategory = null;
+          this.selectedLocation = null;
           this.images = [];
         },
         error: (err) => {
@@ -162,6 +171,23 @@ export class CreatePostComponent implements OnInit {
         next: () => {
           this.images = this.images.filter((i) => i !== url);
         },
+      });
+  }
+
+  selectLocation() {
+    this.dialogService
+      .open(SelectLocationComponent, {
+        width: '400px',
+        data: {
+          forPost: true,
+        },
+      })
+      .onClose.subscribe((r: PostLocation) => {
+        if (r) {
+          console.log(r);
+          this.selectedLocation = r;
+          console.log(this.selectedLocation);
+        }
       });
   }
 }

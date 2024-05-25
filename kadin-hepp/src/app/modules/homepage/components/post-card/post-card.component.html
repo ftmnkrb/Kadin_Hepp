@@ -31,7 +31,9 @@
     </div>
   </div>
 
-  <div class="post-card-footer d-flex justify-content-between py-1 border-top pt-2">
+  <div
+    class="post-card-footer d-flex justify-content-between py-1 border-top pt-2"
+  >
     <!-- <div class="post-card-container">
       <i class="bi bi-chat"></i>
       <span>{{ post.commentCount }}</span>
@@ -41,7 +43,24 @@
       <span class="badge text-bg-primary text-white p-2">
         {{ post.category.cname }}
       </span>
+      <span
+        *ngIf="post.location"
+        class="badge text-bg-secondary text-white p-2 ms-2"
+      >
+        <i class="bi bi-geo-alt-fill me-1"></i>
+        <span *ngIf="!post.location?.ilce?.value">{{
+          post.location.il.name
+        }}</span>
+        <span
+          *ngIf="post.location?.ilce?.value && !post.location?.mahalle?.value"
+          >{{ post.location.ilce.value.name }}</span
+        >
+        <span *ngIf="post.location?.mahalle?.value">{{
+          post.location.mahalle.value.name
+        }}</span>
+      </span>
     </div>
+
     <div class="post-card-container">
       <i
         [ngClass]="isLikedByUser() ? 'bi-heart-fill' : 'bi-suit-heart'"
@@ -50,5 +69,8 @@
       ></i>
       <span>{{ post.likedUsers?.length || 0 }}</span>
     </div>
+  </div>
+  <div class="text-muted mt-2">
+    {{ post.createTime | date : "MMM d, y, hh:mm" }}
   </div>
 </div>

@@ -43,19 +43,21 @@ export class UserLocationService {
   }
 
   editUserLocation(body: UserLocation): Observable<UserLocation> {
-    return this.http
-      .put<{ name: string }>(
-        `${environment.firebaseUrl}/userLocations/${body.id}.json`,
-        body
-      )
-      .pipe(
-        exhaustMap((res) => {
-          return this.getLocationById(res.name);
-        }),
-        tap((res) => {
-          this.activeUserLocation$.next(res);
-        })
-      );
+    return this.getUserLocation(body.userId).pipe(
+      exhaustMap((l) => {
+        return this.http
+          .put<UserLocation>(
+            `${environment.firebaseUrl}/userLocations/${l?.id}.json`,
+            body
+          )
+          .pipe(
+            tap((res) => {
+              console.log(res);
+              this.activeUserLocation$.next(res);
+            })
+          );
+      })
+    );
   }
 
   getLocationById(id: string): Observable<UserLocation> {
@@ -80,6 +82,7 @@ export class UserLocationService {
           return locations.find((l) => l.userId == userId) || null;
         }),
         tap((l) => {
+          console.log(l);
           this.activeUserLocation$.next(l);
         })
       );

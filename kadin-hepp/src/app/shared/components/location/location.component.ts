@@ -15,7 +15,7 @@ import { UserLocationService } from '../../services/user-location.service';
           {{
             data?.location?.hood?.name ||
               data?.location?.district?.name ||
-              data.location.city.name
+              data?.location?.city?.name
           }}
         </span>
         <i class="fa-solid fa-location-dot ms-sm-2"></i>

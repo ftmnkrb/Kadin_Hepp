@@ -5,6 +5,7 @@ import { Category, Post } from '../models/post';
 import { BehaviorSubject, Observable, exhaustMap, map, take, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { convertFirebaseResponse } from 'src/app/shared/utils/helpers';
+import { UserLocationService } from 'src/app/shared/services/user-location.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,11 @@ export class PostService {
   searchText = new BehaviorSubject<string>('');
   selectedCategory = new BehaviorSubject<Category | null>(null);
 
-  constructor(private http: HttpClient, private toastService: ToastService) {}
+  constructor(
+    private http: HttpClient,
+    private toastService: ToastService,
+    private uls: UserLocationService
+  ) {}
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.firebaseUrl}/posts.json`).pipe(
@@ -26,7 +31,7 @@ export class PostService {
         return posts.sort((a, b) => b.createTime - a.createTime);
       }),
       tap((res) => {
-        this.allPosts$.next(res);
+        this.allPosts$.next(this.filterByLocation(res));
       })
     );
   }
@@ -207,7 +212,7 @@ export class PostService {
             }
             return p;
           });
-        this.allPosts$.next(filteredPosts);
+        this.allPosts$.next(this.filterByLocation(filteredPosts));
         this.searchText.next(text);
       });
   }
@@ -221,5 +226,70 @@ export class PostService {
   selectCategory(category: Category | null) {
     this.selectedCategory.next(category);
     this.search(this.searchText.getValue());
+  }
+
+  syncFilterByLocation() {
+    this.uls.activeUserLocation$.subscribe((location) => {
+      this.getAllPosts()
+        .pipe(take(1))
+        .subscribe((allPosts) => {
+          console.log(allPosts);
+          console.log(location);
+          if (location?.location.hood) {
+            console.log('1');
+            const v = allPosts.filter(
+              (p) =>
+                p.location?.mahalle?.value?.name ==
+                location.location?.hood?.name
+            );
+            this.allPosts$.next(v);
+          } else if (location?.location.district) {
+            console.log('2');
+            const v = allPosts.filter(
+              (p) =>
+                p.location?.ilce?.value?.name ==
+                location.location?.district?.name
+            );
+            console.log(v);
+            this.allPosts$.next(v);
+          } else if (location?.location.city) {
+            console.log('3');
+            const v = allPosts.filter(
+              (p) => p.location?.il?.name == location.location?.city?.name
+            );
+            this.allPosts$.next(v);
+          } else {
+            console.log('4');
+            this.allPosts$.next(allPosts);
+          }
+        });
+    });
+  }
+
+  filterByLocation(posts: Post[]): Post[] {
+    const location = this.uls.activeUserLocation$.getValue();
+    if (location?.location.hood) {
+      console.log('1');
+      const v = posts.filter(
+        (p) => p.location?.mahalle?.value?.name == location.location?.hood?.name
+      );
+      return v;
+    } else if (location?.location.district) {
+      console.log('2');
+      const v = posts.filter(
+        (p) =>
+          p.location?.ilce?.value?.name == location.location?.district?.name
+      );
+      return v;
+      console.log(v);
+    } else if (location?.location.city) {
+      console.log('3');
+      const v = posts.filter(
+        (p) => p.location?.il?.name == location.location?.city?.name
+      );
+      return v;
+    } else {
+      return posts;
+    }
   }
 }

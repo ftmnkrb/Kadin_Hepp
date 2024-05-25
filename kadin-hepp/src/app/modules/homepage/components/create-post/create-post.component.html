@@ -77,6 +77,11 @@
             autocomplete="off"
         /></ng-container>
       </div>
+      <i
+        style="cursor: pointer"
+        class="bi bi-geo-alt-fill ms-2"
+        (click)="selectLocation()"
+      ></i>
       <p-cascadeSelect
         placeholder="Kategori Seç"
         [(ngModel)]="selectedCategory"
@@ -88,12 +93,37 @@
       ></p-cascadeSelect>
     </div>
     <button
-      [disabled]="postForm.invalid || !selectedCategory"
+      [disabled]="postForm.invalid || !selectedCategory || !selectedLocation"
       type="submit"
       class="btn btn-primary text-white"
     >
       {{ updateMode ? "Güncelle" : "Paylaş" }}
     </button>
+  </div>
+  <div
+    *ngIf="selectedLocation"
+    class="border-top mt-2 pt-2"
+    [ngClass]="isMobile ? 'd-sm-none d-flex' : 'd-sm-flex d-none'"
+  >
+    <span
+      style="font-size: 0.8rem"
+      class="badge text-bg-secondary text-white p-3"
+    >
+      <span *ngIf="!selectedLocation?.ilce?.value">{{
+        selectedLocation.il.name
+      }}</span>
+      <span
+        *ngIf="
+          selectedLocation?.ilce?.value && !selectedLocation?.mahalle?.value
+        "
+        >{{ selectedLocation.ilce.value.name }}</span
+      >
+      <span *ngIf="selectedLocation?.mahalle?.value">{{
+        selectedLocation.mahalle.value.name
+      }}</span>
+
+      <i class="bi bi-geo-fill ms-2"></i>
+    </span>
   </div>
 </ng-template>
 

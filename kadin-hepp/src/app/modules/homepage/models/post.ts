@@ -10,6 +10,7 @@ export interface Post {
   createTime: number;
   images: string[];
   category: Category;
+  location: PostLocation;
 }
 
 export interface Category {
@@ -17,6 +18,19 @@ export interface Category {
   code: string;
   baseName: string;
   baseCode: string;
+}
+
+export interface PostLocation {
+  il: any;
+  ilce: {
+    il: any;
+    value: any;
+  };
+  mahalle: {
+    il: any;
+    ilce: any;
+    value: any;
+  };
 }
 
 export const Categories = [

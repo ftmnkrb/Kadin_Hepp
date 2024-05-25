@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
-import { Observable, map, take } from 'rxjs';
+import { Observable, filter, map, take } from 'rxjs';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { UserLocationService } from 'src/app/shared/services/user-location.service';
 
 @Component({
   selector: 'app-homepage',
@@ -16,7 +17,9 @@ export class HomepageComponent implements OnInit {
   constructor(
     private postService: PostService,
     private loadingService: LoadingService
-  ) {}
+  ) {
+    this.postService.syncFilterByLocation();
+  }
 
   ngOnInit(): void {
     this.postService.getAllPosts().pipe(take(1)).subscribe();

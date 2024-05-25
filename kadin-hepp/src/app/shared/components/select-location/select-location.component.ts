@@ -8,9 +8,10 @@ import {
 import { CitiesService } from '../../services/cities.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { take } from 'rxjs';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserLocationService } from '../../services/user-location.service';
 import { UserLocation } from '../../models/user-location';
+import { PostLocation } from 'src/app/modules/homepage/models/post';
 
 @Component({
   selector: 'app-select-location',
@@ -23,6 +24,7 @@ export class SelectLocationComponent implements OnInit {
     private uls: UserLocationService,
     private as: AuthService,
     private ddref: DynamicDialogRef,
+    private ddconf: DynamicDialogConfig,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -35,17 +37,23 @@ export class SelectLocationComponent implements OnInit {
 
   userLocation: UserLocation | null = null;
 
+  isForPost = false;
+
   ngOnInit(): void {
     this.citiesService.getCities().subscribe((res) => {
-      console.log(res);
       this.cities = res;
     });
 
-    this.userLocation = this.uls.activeUserLocation$.getValue();
+    const isForPost = this.ddconf?.data?.forPost;
+    if (!isForPost) {
+      this.userLocation = this.uls.activeUserLocation$.getValue();
 
-    this.selectedCity = this.userLocation?.location.city;
-    this.selectedDistrict = this.userLocation?.location.district;
-    this.selectedHood = this.userLocation?.location.hood;
+      this.selectedCity = this.userLocation?.location.city;
+      this.selectedDistrict = this.userLocation?.location.district;
+      this.selectedHood = this.userLocation?.location.hood;
+    } else {
+      this.isForPost = true;
+    }
 
     if (this.selectedDistrict) {
       this.getNeighborhoods();
@@ -53,7 +61,6 @@ export class SelectLocationComponent implements OnInit {
   }
 
   getNeighborhoods() {
-    console.log('abi');
     this.citiesService
       .getNeighborhoods(this.selectedDistrict.id)
       .subscribe((r) => {
@@ -62,8 +69,24 @@ export class SelectLocationComponent implements OnInit {
   }
 
   editLocation() {
+    if (this.isForPost) {
+      const value = {
+        il: this.selectedCity,
+        ilce: {
+          il: this.selectedCity,
+          value: this.selectedDistrict,
+        },
+        mahalle: {
+          il: this.selectedCity,
+          ilce: this.selectedDistrict,
+          value: this.selectedHood,
+        },
+      };
+      this.ddref.close(value);
+      return;
+    }
+
     const userıd = this.as.userState.getValue()?.user._id;
-    console.log(userıd);
     if (this.selectedCity && userıd) {
       this.uls
         .editUserLocation({
@@ -77,13 +100,12 @@ export class SelectLocationComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.ddref.close();
+          },
+          error: (err) => {
+            console.log(err);
           },
         });
     }
-    console.log(this.selectedCity);
-    console.log(this.selectedDistrict);
-    console.log(this.selectedHood);
   }
 }
