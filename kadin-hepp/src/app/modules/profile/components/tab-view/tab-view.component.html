@@ -1,14 +1,30 @@
 <div [ngClass]="styleClass">
   <p-tabView>
     <p-tabPanel header="Gönderiler">
-      <ng-container *ngFor="let item of myPosts$ | async">
-        <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
+      <ng-container *ngIf="(myPosts$ | async)?.length; else noPosts">
+        <ng-container *ngFor="let item of myPosts$ | async">
+          <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
+        </ng-container>
       </ng-container>
     </p-tabPanel>
     <p-tabPanel header="Beğenilenler">
-      <ng-container *ngFor="let item of likedPosts$ | async">
-        <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
+      <ng-container *ngIf="(likedPosts$ | async)?.length; else noLikes">
+        <ng-container *ngFor="let item of likedPosts$ | async">
+          <app-post-card [post]="item" styleClass="mb-2"></app-post-card>
+        </ng-container>
       </ng-container>
     </p-tabPanel>
   </p-tabView>
 </div>
+
+<ng-template #noLikes>
+  <div class="alert alert-light text-dark" role="alert">
+    Henüz bir gönderi beğenmediniz
+  </div>
+</ng-template>
+
+<ng-template #noPosts>
+  <div class="alert alert-light text-dark" role="alert">
+    Henüz bir gönderi yayınlamadınız
+  </div>
+</ng-template>
